@@ -170,7 +170,7 @@
             // 
             // openToolStripMenuItem
             // 
-            this.openToolStripMenuItem.Image = global::SpriteViewer.Properties.Resources.if_Open_1493293;
+            this.openToolStripMenuItem.Image = global::SpriteViewer.Properties.Resources.open;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
@@ -178,7 +178,7 @@
             // 
             // exitToolStripMenuItem
             // 
-            this.exitToolStripMenuItem.Image = global::SpriteViewer.Properties.Resources.if_dialog_close_29299;
+            this.exitToolStripMenuItem.Image = global::SpriteViewer.Properties.Resources.close;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";

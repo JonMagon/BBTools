@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BOXFile.cs" />
+    <Compile Include="MAPFile.cs" />
     <Compile Include="MFBFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

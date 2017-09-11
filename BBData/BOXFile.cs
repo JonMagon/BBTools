@@ -8,7 +8,7 @@ namespace BBData
 {
     public class BOXFile
     {
-        public List<Entry> Entries { get; private set; }
+        public List<Entry> Entries { get; private set; } = new List<Entry>();
 
         // https://stackoverflow.com/a/1403542
         private string TrimFromZero(string input)
@@ -20,9 +20,7 @@ namespace BBData
             return input.Substring(0, index);
         }
 
-        public BOXFile() { Entries = new List<Entry>(); }
-
-        public BOXFile(string filename) : this()
+        public BOXFile(string filename)
         {
             using (BinaryReader binr = new BinaryReader(File.OpenRead(filename), Encoding.ASCII))
             {

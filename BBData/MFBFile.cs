@@ -14,6 +14,7 @@ namespace BBData
         public List<Image> Entries { get; private set; } = new List<Image>();
         public int Width { get; private set; }
         public int Height { get; private set; }
+        public Point Offset { get; private set; }
         public bool IsCompressed { get; private set; }
         public bool IsTransparent { get; private set; }
 
@@ -39,7 +40,7 @@ namespace BBData
                      * if ( version < 101 || strstr(name, "maptile.mfb") || strstr(name, "hills.mfb") )
                        {
                            entry->x = entry->width / 2;
-                           entry->y = entry->hight;
+                           entry->y = entry->height;
                        }
                        else
                        {
@@ -48,9 +49,9 @@ namespace BBData
                            entry->y = y_1;
                        } 
                     */
-                    short x = binr.ReadInt16(),
-                          y = binr.ReadInt16(),
-                          flags = binr.ReadInt16(),
+                    Offset = new Point(binr.ReadInt16(), binr.ReadInt16());
+
+                    short flags = binr.ReadInt16(),
                           numsprites = binr.ReadInt16();
 
                     int spritesize = Width * Height;
@@ -62,11 +63,11 @@ namespace BBData
                         {
                             int size = binr.ReadInt32();
                             Entries.Add(CreateImage(unRLE(binr.ReadBytes(size), spritesize),
-                                palette, IsTransparent));
+                                palette));
                         }
                     else for (int i = 0; i < numsprites; i++)
                             Entries.Add(CreateImage(binr.ReadBytes(spritesize),
-                                palette, IsTransparent));
+                                palette));
                 }
             }
         }
@@ -95,7 +96,7 @@ namespace BBData
             return output;
         }
 
-        private Image CreateImage(byte[] buffer, Palettes.TypePalette palette, bool transparent)
+        private Image CreateImage(byte[] buffer, Palettes.TypePalette palette)
         {
             Image _img;
             Bitmap bmp = new Bitmap(Width, Height, PixelFormat.Format8bppIndexed);
@@ -126,7 +127,7 @@ namespace BBData
             }
 
 
-            if (transparent)
+            if (IsTransparent)
             {
                 System.Drawing.Color pixel = bmp.GetPixel(0, 0);
                 bmp.MakeTransparent(System.Drawing.Color.FromArgb(255, pixel.R, pixel.G, pixel.B));
