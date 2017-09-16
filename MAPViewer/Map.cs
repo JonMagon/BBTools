@@ -83,9 +83,11 @@ namespace MAPViewer
 
                     Texture2D renderTexture;
 
-                    if (tile.Texture >= 234 && tile.Texture <= 250)
-                        tile.Texture -= 119;
-                    switch (tile.Texture)
+                    int tile_id_texture = tile.Texture;
+
+                    if (tile_id_texture >= 234 && tile_id_texture <= 250)
+                        tile_id_texture -= 119;
+                    switch (tile_id_texture)
                     {
                         case 225:
                             renderTexture = textureList.Find(texture => texture.type.Equals("tester")).getTexture2D();
@@ -100,25 +102,25 @@ namespace MAPViewer
                             renderTexture = textureList.Find(texture => texture.type.Equals("forest2")).getTexture2D();
                             break;
                         default:
-                            if (tile.Texture < 202 || tile.Texture >= 218)
+                            if (tile_id_texture < 202 || tile_id_texture >= 218)
                             {
-                                if (tile.Texture >= 227 && tile.Texture < 232)
+                                if (tile_id_texture >= 227 && tile_id_texture < 232)
                                 {
                                     renderTexture = textureList[textureList.FindIndex(item => item.type.Equals("rock02")) +
-                                        tile.Texture - 227].getTexture2D();
+                                        tile_id_texture - 227].getTexture2D();
                                     break;
                                 }
-                                else if (tile.Texture >= 98 && tile.Texture < 114)
+                                else if (tile_id_texture >= 98 && tile_id_texture < 114)
                                 {
                                     renderTexture = textureList.Find(texture => texture.type.Equals("rockrim")
-                                        && texture.id == tile.Texture - 98).getTexture2D();
+                                        && texture.id == tile_id_texture - 98).getTexture2D();
                                     break;
                                 }
                             }
-                            else tile.Texture = 0;
+                            else tile_id_texture = 0;
 
                             renderTexture = textureList.Find(texture => texture.type.Equals("maptile")
-                                && texture.id == tile.Texture).getTexture2D();
+                                && texture.id == tile_id_texture).getTexture2D();
                             break;
                     }
 
@@ -189,7 +191,8 @@ namespace MAPViewer
 
         }
 
-        public void load(ContentManager content, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, SpriteFont spriteFont, SpriteFont spriteFontBig)
+        public void load(ContentManager content, GraphicsDevice graphicsDevice,
+            SpriteBatch spriteBatch, SpriteFont spriteFont, SpriteFont spriteFontBig)
         {
             this.spriteBatch = spriteBatch;
             this.graphicsDevice = graphicsDevice;

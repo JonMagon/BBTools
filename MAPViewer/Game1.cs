@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGameConsole;
 
 namespace MAPViewer
 {
@@ -18,12 +19,13 @@ namespace MAPViewer
         public static int WINDOW_WIDTH = 1200;
         public static int WINDOW_HEIGHT = 600;
 
-        SpriteFont spriteFont;
+        private SpriteFont spriteFont;
         private SpriteFont spriteFontBig;
 
         private Map gameMap;
         private Camera camera;
         private GameMouse gameMouse;
+        private GameKeyboard keyboard;
 
         public Game1()
         {
@@ -47,12 +49,44 @@ namespace MAPViewer
             camera = new Camera(WINDOW_WIDTH, WINDOW_HEIGHT);
             gameMouse = new GameMouse(new Point(WINDOW_WIDTH, WINDOW_HEIGHT));
 
+            keyboard = new GameKeyboard(camera, gameMap);
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            Services.AddService(typeof(SpriteBatch), spriteBatch);
+
+            GameConsole console = new GameConsole(this, spriteBatch, new GameConsoleOptions
+            {
+                ToggleKey = 192,
+                Height = 250,
+                Font = Content.Load<SpriteFont>("fontBig"),
+                FontColor = Color.LawnGreen,
+                Prompt = ">",
+                PromptColor = Color.White,
+                CursorColor = Color.White,
+                BackgroundColor = new Color(Color.Black, 150),
+                PastCommandOutputColor = Color.Aqua,
+                BufferColor = Color.White
+            });
+
+            console.AddCommand("goto", a =>
+            {
+                int x, y;
+                if (a.Length != 2 || !(int.TryParse(a[0], out x) && int.TryParse(a[1], out y)))
+                    return "ERROR: Illegal arguments";
+                if (x < 0 || x > 192 || y < 0 || y > 192)
+                    return "ERROR: Arguments x and y must be both positive and less than 192";
+                camera.xOffset = gameMap.calcIsoX(x, y) - WINDOW_WIDTH / 2;
+                camera.yOffset = gameMap.calcIsoY(x, y) - WINDOW_HEIGHT / 2;
+                return string.Format("SUCCESS: New position is {0} {1}", x, y);
+            }, "Set new position. Arguments: x y");
+
+            keyboard.console = console;
 
             spriteFont = Content.Load<SpriteFont>("font");
             spriteFontBig = Content.Load<SpriteFont>("fontBig");
@@ -92,6 +126,9 @@ namespace MAPViewer
             gameMouse.handleMouse();
 
             gameMap.handleMouse(gameMouse, camera);
+
+            keyboard.Update();
+
             base.Update(gameTime);
         }
 
@@ -101,6 +138,8 @@ namespace MAPViewer
             spriteBatch.Begin();
 
             gameMap.drawMap(camera);
+
+            //drawConsole(spriteBatch, spriteFont);
 
             spriteBatch.End();
 
