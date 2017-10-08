@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameConsole;
+using System;
+using System.Windows.Forms;
 
 namespace MAPViewer
 {
@@ -119,9 +121,6 @@ namespace MAPViewer
                 if (Map.mark_object_id > 3) Map.mark_object_id = 0;
             }
 
-            gameMouse.state = Mouse.GetState();
-            gameMouse.camera = this.camera;
-
             gameMouse.updateCursor();
             gameMouse.handleMouse();
 
@@ -137,7 +136,15 @@ namespace MAPViewer
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
 
-            gameMap.drawMap(camera);
+            try
+            {
+                gameMap.drawMap(camera);
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + Environment.NewLine +
+                    "This application will be terminated.", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Exit();
+            }
 
             //drawConsole(spriteBatch, spriteFont);
 

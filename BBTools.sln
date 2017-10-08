@@ -8,8 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpriteViewer", "SpriteViewe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAPViewer", "MAPViewer\MAPViewer.csproj", "{93E9805A-3A7A-4022-8E3C-D0038F4AC879}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGameConsole", "..\Repos\MonoGame-Console\MonoGameConsole\MonoGameConsole.csproj", "{4C518047-BB66-4114-84E4-6DDD473719A7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,14 +38,6 @@ Global
 		{93E9805A-3A7A-4022-8E3C-D0038F4AC879}.Release|Any CPU.ActiveCfg = Release|x86
 		{93E9805A-3A7A-4022-8E3C-D0038F4AC879}.Release|x86.ActiveCfg = Release|x86
 		{93E9805A-3A7A-4022-8E3C-D0038F4AC879}.Release|x86.Build.0 = Release|x86
-		{4C518047-BB66-4114-84E4-6DDD473719A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C518047-BB66-4114-84E4-6DDD473719A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C518047-BB66-4114-84E4-6DDD473719A7}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4C518047-BB66-4114-84E4-6DDD473719A7}.Debug|x86.Build.0 = Debug|Any CPU
-		{4C518047-BB66-4114-84E4-6DDD473719A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C518047-BB66-4114-84E4-6DDD473719A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C518047-BB66-4114-84E4-6DDD473719A7}.Release|x86.ActiveCfg = Release|Any CPU
-		{4C518047-BB66-4114-84E4-6DDD473719A7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

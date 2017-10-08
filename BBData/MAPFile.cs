@@ -12,7 +12,8 @@ namespace BBData
         public string Name { get; private set; }
         public Point Size { get; private set; }
 
-        public List<Tile> Tiles { get; private set; } = new List<Tile>();
+        public List<MapTile> Tiles { get; private set; } = new List<MapTile>();
+        public List<MapObject> Objects { get; private set; } = new List<MapObject>();
 
         // https://stackoverflow.com/a/1403542
         private string TrimFromZero(string input)
@@ -38,70 +39,133 @@ namespace BBData
 
                 for (int x = 0; x < Size.X; x++)
                 {
-                    uint size = binr.ReadUInt32();
-                    byte[] data = new byte[Size.X * 0xC];
-                    byte temp;
-                    uint j = 0;
-                    uint k = 0;
+                    int size = binr.ReadInt32();
+                    byte[] data = unRLE0(binr.ReadBytes(size), Size.Y * 0xC);
 
-                    // uncompress RLE-0
-                    while (j < size)
-                    {
-                        temp = binr.ReadByte(); j++;
-                        if (temp != 0)
-                        {
-                            data[k] = temp;
-                            k++;
-                        }
-                        else
-                        {
-                            int length = binr.ReadByte(); j++;
-                            for (int t = 0; t < length; t++)
-                            {
-                                if (k == Size.X * 0xC) break;
-                                data[k] = 0;
-                                k++;
-                            }
-                        }
-                    }
                     for (int y = 0; y < Size.Y; y++)
                     {
                         int ptr = y * 12;
 
-                        Tile tile = new Tile(new Point(y, x));
+                        MapTile tile = new MapTile(new Point(y, x));
                         tile.Texture = data[ptr + 0];
                         tile.Road = data[ptr + 1];
                         tile.Player = data[ptr + 2];
-                        tile.Unk2 = data[ptr + 3];
-                        tile.Entity = data[ptr + 4];
-                        tile.Unk3 = data[ptr + 5];
-                        tile.IsObject = data[ptr + 6];
-                        tile.Unk6 = BitConverter.ToInt32(new byte[] { data[ptr + 8],
-                            data[ptr + 9], data[ptr + 10], data[ptr + 11] }, 0);
+                        tile.Mask1 = BitConverter.ToInt32(data, ptr + 3);
+                        tile.Unk1 = data[ptr + 7];
+                        tile.Mask2 = BitConverter.ToInt32(data, ptr + 8);
 
                         Tiles.Add(tile);
                     }
                 }
+
+                // objects
+
+                int ptr_to_some_global_arr = binr.ReadInt32(),
+                    ptr_to_smth2_arr = binr.ReadInt32(),
+                    sizeof_smth2_arr = binr.ReadInt32();
+
+                for (int i = 0; i < sizeof_smth2_arr; i++)
+                {
+                    if (binr.ReadByte() != 0)
+                    {
+                        int size = binr.ReadInt32();
+                        byte[] data = unRLE0(binr.ReadBytes(size), 0x13A);
+                        if (BitConverter.ToInt32(data, 236) != 0)
+                        {
+                            Array.Copy(binr.ReadBytes(data[0xF0]), 0, data, 236, data[0xF0]);
+                        }
+
+                        if (data[212] == 98)
+                        {
+                            Array.Copy(binr.ReadBytes(32), 0, data, 0x3C, 32);
+                        }
+
+                        if (BitConverter.ToInt32(data, 56) != 0)
+                        {
+                            Array.Copy(binr.ReadBytes(2), 0, data, 0x38, 2);
+                        }
+
+                        byte[] indexbytes = BitConverter.GetBytes(i);
+                        Array.Copy(indexbytes, 0, data, 142, 4);
+
+                        MapObject map_object = new MapObject(new Point(data[0xD8], data[0xD9]));
+                        map_object.ClassID = data[0xD4];
+                        Objects.Add(map_object);
+
+                        //Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8}", data[0xD8], data[0xD9], data[0xEC], data[0xD4], data[0x38], data[0xF2], data[0xA0], data[0xA1], data[0xF2]);
+
+                        if (data[0xD4] == 2)
+                            Console.WriteLine("{0} {1}", BitConverter.ToInt32(data, 0x120), BitConverter.ToInt32(data, 0x124));
+
+                        /*if (data[0xD4] == 103)
+                        {
+                            foreach (byte b in data) Console.Write("{0:X2} ", b);
+                            Console.WriteLine();
+                        }*/
+
+                        //if (data[0xD8] == 89 && data[0xD9] == 64)
+                        //    File.WriteAllBytes("villager4.bin", data);
+                    }
+                }
             }
+        }
+
+        static byte[] unRLE0(byte[] input, int size)
+        {
+            byte[] data = new byte[size];
+            byte temp;
+            uint j = 0;
+            uint k = 0;
+
+            while (j < input.Length)
+            {
+                temp = input[j++];
+                if (temp != 0)
+                {
+                    data[k] = temp;
+                    k++;
+                }
+                else
+                {
+                    int length = input[j++];
+                    for (int t = 0; t < length; t++)
+                    {
+                        if (k == size) break;
+                        data[k] = 0;
+                        k++;
+                    }
+                }
+            }
+
+            return data;
         }
     }
 
-    public class Tile
+    public class MapObject
     {
         public Point Position { get; private set; }
 
-        public int Texture { get; set; }
+        public byte ClassID { get; set; }
+
+        public MapObject(Point position)
+        {
+            this.Position = position;
+        }
+    }
+
+    public class MapTile
+    {
+        public Point Position { get; private set; }
+
+        public byte Texture { get; set; }
         public byte Road { get; set; }
         public byte Player { get; set; }
-        public byte Unk2 { get; set; }
-        public byte Entity { get; set; }
-        public byte Unk3 { get; set; }
-        public byte IsObject { get; set; }
-        public byte Unk5 { get; set; }
-        public int Unk6 { get; set; }
+        public int Mask1 { get; set; }
+        public byte Unk1 { get; set; }
+        public int Mask2 { get; set; }
 
 
-        public Tile(Point position)
+        public MapTile(Point position)
         {
             this.Position = position;
         }

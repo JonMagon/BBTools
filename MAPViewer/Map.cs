@@ -40,8 +40,8 @@ namespace MAPViewer
 
         public Point getTileCoordinates(Point pt)
         {
-            return new Point((int)(Math.Floor(pt.X / (double)tileWidth + pt.Y / (double)tileHeight)),
-                -(int)(Math.Floor(pt.X / (double)tileWidth - pt.Y / (double)tileHeight)));
+            return new Point((int)(Math.Floor(pt.X / (float)tileWidth + pt.Y / (float)tileHeight)),
+                -(int)(Math.Floor(pt.X / (float)tileWidth - pt.Y / (float)tileHeight)));
         }
 
         public static int mark_object_id = 0;
@@ -65,17 +65,17 @@ namespace MAPViewer
                 else camera.moveableYDown = true;
 
                 tilesDrawed = 0;
-                List<Tile> visibleTiles = map.Tiles.FindAll(item => (
-                               calcIsoX(item.Position.X, item.Position.Y) + tileWidth
-                                        > camera.width + camera.xOffset - camera.width &&
-                               calcIsoX(item.Position.X, item.Position.Y) - tileWidth
-                                                       < camera.width + camera.xOffset) &&
-                              (calcIsoY(item.Position.X, item.Position.Y) + 2 * tileHeight
-                                        > camera.height + camera.yOffset - camera.height &&
-                               calcIsoY(item.Position.X, item.Position.Y) - 2 * tileHeight
-                                                       < camera.height + camera.yOffset));
+                List<MapTile> visibleTiles = map.Tiles.FindAll(item => (
+                    calcIsoX(item.Position.X, item.Position.Y) + tileWidth
+                        > camera.width + camera.xOffset - camera.width &&
+                    calcIsoX(item.Position.X, item.Position.Y) - tileWidth
+                        < camera.width + camera.xOffset) &&
+                    (calcIsoY(item.Position.X, item.Position.Y) + 2 * tileHeight
+                        > camera.height + camera.yOffset - camera.height &&
+                    calcIsoY(item.Position.X, item.Position.Y) - 2 * tileHeight
+                        < camera.height + camera.yOffset));
 
-                foreach (Tile tile in visibleTiles)
+                foreach (MapTile tile in visibleTiles)
                 {
                     Point isoCoords = calcIsoXY(tile.Position.X, tile.Position.Y);
                     isoCoords.X -= camera.xOffset;
@@ -146,14 +146,17 @@ namespace MAPViewer
                 mouse_pos.Y += camera.yOffset;
                 selectedTile = getTileCoordinates(mouse_pos);
 
-                string mousecoords = string.Format(" {0},{1} ", selectedTile.X, selectedTile.Y);
+                MapObject map_object_1 = map.Objects.Find(item => item.Position.X == selectedTile.X &&
+                        item.Position.Y == selectedTile.Y);
+
+                string mousecoords = string.Format(" {0},{1} {2}", selectedTile.X, selectedTile.Y, (map_object_1 != null ? map_object_1.ClassID.ToString() : "null"));
                 spriteBatch.DrawString(spriteFont, mousecoords, new Vector2(
                     mousePosition.X + 16, mousePosition.Y - 14), Color.Black);
                 spriteBatch.DrawString(spriteFont, mousecoords, new Vector2(
                     mousePosition.X + 15, mousePosition.Y - 15), Color.White);
 
                 // drawing tile ptr
-                Tile tile_selected = map.Tiles.Find(_tile => _tile.Position.X == (float)selectedTile.X
+                MapTile tile_selected = map.Tiles.Find(_tile => _tile.Position.X == (float)selectedTile.X
                     && _tile.Position.Y == (float)selectedTile.Y);
                 if (tile_selected != null)
                 {
@@ -171,19 +174,74 @@ namespace MAPViewer
 
                 // drawing object
                 // now just draw red arrow
-                foreach (Tile tile in visibleTiles)
+                foreach (MapTile tile in visibleTiles)
                 {
-                    Point isoCoords = calcIsoXY((int)tile.Position.X, (int)tile.Position.Y);
+                    Point isoCoords = calcIsoXY(tile.Position.X, tile.Position.Y);
                     isoCoords.X -= camera.xOffset;
                     isoCoords.Y -= camera.yOffset;
 
-                    if (tile.IsObject != 0)
+                    MapObject map_object = map.Objects.Find(item => item.Position.X == tile.Position.X &&
+                        item.Position.Y == tile.Position.Y);
+
+                    if (map_object != null)
                     {
-                        Texture2D renderTexture = textureList.Find(texture => texture.type.Equals("doogle")
-                            && texture.id == mark_object_id).getTexture2D();
-                        spriteBatch.Draw(renderTexture, new Vector2(
-                            isoCoords.X + (tileWidth / 2 - renderTexture.Width / 2),
-                            isoCoords.Y - (tileWidth / 2 - renderTexture.Width / 2)), Color.White);
+                        string texture_name = "doogle";
+                        switch (map_object.ClassID)
+                        {
+                            case 0:
+                                texture_name = "bigfir";
+                                break;
+                            case 2:
+                                texture_name = "peashut";
+                                break;
+                            case 5:
+                                texture_name = "tree02";
+                                break;
+                            case 6:
+                                texture_name = "tree10";
+                                break;
+                            case 83:
+                                texture_name = "poison";
+                                break;
+                            case 103:
+                                texture_name = "villager";
+                                break;
+                            case 58:
+                                texture_name = "d_male";
+                                break;
+                            case 69:
+                                texture_name = "toolshed"; // здание билдеров
+                                break;
+                            case 111:
+                                texture_name = "chikfeld";
+                                break;
+                            case 98:
+                                texture_name = "owner";
+                                break;
+                            case 143:
+                                texture_name = "campfire";
+                                break;
+                            case 144:
+                                texture_name = "crate";
+                                break;
+                            case 110:
+                                texture_name = "cowwalk";
+                                break;
+                            case 159:
+                                texture_name = "gob_silv";
+                                break;
+                            case 171:
+                                texture_name = "crate";
+                                break;
+                            default:
+                                throw new Exception(String.Format("Unhandled class id: {0}", map_object.ClassID));
+                                break;
+                        }
+                        GameTextures2D gameTexture = textureList.Find(texture => texture.type.Equals(texture_name));
+                        if (gameTexture != null)
+                            spriteBatch.Draw(gameTexture.getTexture2D(), new Vector2(
+                                isoCoords.X - gameTexture.offset.X + tileWidth / 2,
+                                isoCoords.Y - gameTexture.offset.Y), Color.White);
                     }
                 }
             }
@@ -202,9 +260,9 @@ namespace MAPViewer
             this.content = content;
             this.textureList = new List<GameTextures2D>();
 
-            map = new MAPFile(@"D:\2017_Remake\game\savegam0.sav");
+            map = new MAPFile(@"D:\beasts\savegam0.sav");
 
-            video = new BOXFile(@"D:\2017_Remake\game\VIDEO.BOX");
+            video = new BOXFile(@"D:\beasts\VIDEO.BOX");
             LoadTexturesFromMFB("maptile.mfb");
             LoadTexturesFromMFB("roads.mfb");
             LoadTexturesFromMFB("tester.mfb");
@@ -219,6 +277,21 @@ namespace MAPViewer
             LoadTexturesFromMFB("rock06.mfb");
             LoadTexturesFromMFB("doogle.mfb");
             LoadTexturesFromMFB("tileptr.mfb");
+
+            LoadTexturesFromMFB("bigfir.mfb");
+            LoadTexturesFromMFB("tree10.mfb");
+            LoadTexturesFromMFB("poison.mfb");
+            LoadTexturesFromMFB("villager.mfb");
+            LoadTexturesFromMFB("d_male.mfb");
+            LoadTexturesFromMFB("tree02.mfb");
+            LoadTexturesFromMFB("toolshed.mfb");
+            LoadTexturesFromMFB("chikfeld.mfb");
+            LoadTexturesFromMFB("peashut.mfb");
+            LoadTexturesFromMFB("owner.mfb");
+            LoadTexturesFromMFB("campfire.mfb");
+            LoadTexturesFromMFB("crate.mfb");
+            LoadTexturesFromMFB("cowwalk.mfb");
+            LoadTexturesFromMFB("gob_silv.mfb");
         }
 
 
@@ -227,7 +300,14 @@ namespace MAPViewer
             MFBFile mfb = new MFBFile(video.Entries.Find(
                     item => item.filename == name).data);
             for (int i = 0; i < mfb.Entries.Count; i++)
-                textureList.Add(new GameTextures2D(GetTexture2DFromBitmap(new System.Drawing.Bitmap(mfb.Entries[i])), name.Replace(".mfb", null), i));
+                textureList.Add(
+                    new GameTextures2D(
+                        GetTexture2DFromBitmap(new System.Drawing.Bitmap(mfb.Entries[i])),
+                        mfb.Offset,
+                        name.Replace(".mfb", null),
+                        i
+                        )
+                    );
         }
 
         // modified https://stackoverflow.com/a/2870399
