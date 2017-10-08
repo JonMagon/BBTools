@@ -235,7 +235,6 @@ namespace MAPViewer
                                 break;
                             default:
                                 throw new Exception(String.Format("Unhandled class id: {0}", map_object.ClassID));
-                                break;
                         }
                         GameTextures2D gameTexture = textureList.Find(texture => texture.type.Equals(texture_name));
                         if (gameTexture != null)
