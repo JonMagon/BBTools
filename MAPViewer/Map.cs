@@ -191,6 +191,7 @@ namespace MAPViewer
                     if (map_object != null)
                     {
                         string texture_name = "doogle";
+                        int frame = 0;
                         switch (map_object.Class)
                         {
                             case 0:
@@ -207,11 +208,76 @@ namespace MAPViewer
                                 break;
                             case 83:
                                 texture_name = "poison";
+                                frame = map_object.State;
                                 break;
                             case 103:
                                 texture_name = "villager";
                                 break;
                             case 58:
+                                switch (map_object.Field_F2)
+                                {
+                                    case 0x1B:
+                                        switch (map_object.State)
+                                        {
+                                            case 1:
+                                            default:
+                                                texture_name = "d_male";
+                                                break;
+                                            case 2:
+                                                texture_name = "d_fema";
+                                                break;
+                                            case 3:
+                                                texture_name = "d_prie";
+                                                break;
+                                            case 4:
+                                                texture_name = "d_buil";
+                                                break;
+                                            case 5:
+                                                texture_name = "d_taxm";
+                                                break;
+                                            case 6:
+                                                texture_name = "d_pike";
+                                                break;
+                                            case 7:
+                                                texture_name = "d_foot";
+                                                break;
+                                            case 8:
+                                                texture_name = "d_knig";
+                                                break;
+                                            case 9:
+                                                texture_name = "d_wiza";
+                                                break;
+                                            case 10:
+                                                texture_name = "d_oldm";
+                                                break;
+                                            case 11:
+                                                texture_name = "d_oldw";
+                                                break;
+                                            case 12:
+                                                texture_name = "d_kidm";
+                                                break;
+                                            case 13:
+                                                texture_name = "d_kidf";
+                                                break;
+                                            case 16:
+                                                texture_name = "d_cava";
+                                                break;
+                                            case 19:
+                                                texture_name = "d_arch";
+                                                break;
+                                            case 20:
+                                                texture_name = "d_jest";
+                                                break;
+                                            case 32:
+                                                texture_name = "d_groom";
+                                                break;
+                                            case 33:
+                                                texture_name = "d_bride";
+                                                break;
+                                        }
+                                        frame = map_object.Frame >> 2;
+                                        break;
+                                }
                                 texture_name = "d_male";
                                 break;
                             case 69:
@@ -241,16 +307,17 @@ namespace MAPViewer
                             default:
                                 throw new Exception(String.Format("Unhandled class id: {0}", map_object.Class));
                         }
-                        GameTexture2D gameTexture = Textures[texture_name, 0];
-                        if (gameTexture != null)
-                            spriteBatch.Draw(gameTexture.getTexture2D(), new Vector2(
-                                isoCoords.X - gameTexture.offset.X + tileWidth / 2,
-                                isoCoords.Y - gameTexture.offset.Y), Color.White);
+                        DrawTexture(isoCoords, Textures[texture_name, frame]);
                     }
                 }
             }
+        }
 
-
+        public void DrawTexture(Point isoCoords, GameTexture2D texture)
+        {
+            spriteBatch.Draw(texture.getTexture2D(), new Vector2(
+                isoCoords.X - texture.offset.X + tileWidth / 2,
+                isoCoords.Y - texture.offset.Y), Color.White);
         }
 
         public void load(ContentManager content, GraphicsDevice graphicsDevice,

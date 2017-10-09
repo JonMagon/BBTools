@@ -90,7 +90,9 @@ namespace BBData
 
                         MapObject map_object = new MapObject(new Point(data[0xD8], data[0xD9]));
                         map_object.Class = data[0xD4];
-                        map_object.Frame = data[0xEA];
+                        map_object.State = data[0xEA];
+                        map_object.Field_F2 = data[0xF2];
+                        map_object.Frame = data[0xF9];
                         Objects.Add(map_object);
 
                         //Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8}", data[0xD8], data[0xD9], data[0xEC], data[0xD4], data[0x38], data[0xF2], data[0xA0], data[0xA1], data[0xF2]);
@@ -147,6 +149,8 @@ namespace BBData
         public Point Position { get; private set; }
 
         public byte Class { get; set; }
+        public byte State { get; set; }
+        public byte Field_F2 { get; set; }
         public byte Frame { get; set; }
 
         public MapObject(Point position)

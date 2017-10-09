@@ -41,9 +41,12 @@ namespace MAPViewer
                             );
                         textureList.Add(item);
                         if (i == frame) texture = item;
-
                     }
                 }
+
+                if (texture == null)
+                    throw new Exception(String.Format("{0}: frame {1} doesn't exists.", name + ".mfb", frame));
+
                 return texture;
             }
         }
