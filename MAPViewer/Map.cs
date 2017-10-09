@@ -19,7 +19,7 @@ namespace MAPViewer
         private GraphicsDevice graphicsDevice;
         public int tilesDrawed;
 
-        private List<GameTextures2D> textureList;
+        private GameTextures Textures;
         public Point mousePosition;
 
         private int tilesX = 192;
@@ -29,7 +29,6 @@ namespace MAPViewer
         private int tileWidth = 78;
         private int tileHeight = 40;
 
-        private BOXFile video;
         private MAPFile map;
 
         public Map(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
@@ -66,13 +65,13 @@ namespace MAPViewer
 
                 tilesDrawed = 0;
                 List<MapTile> visibleTiles = map.Tiles.FindAll(item => (
-                    calcIsoX(item.Position.X, item.Position.Y) + tileWidth
+                    calcIsoX(item.Position.X, item.Position.Y) +  tileWidth
                         > camera.width + camera.xOffset - camera.width &&
-                    calcIsoX(item.Position.X, item.Position.Y) - tileWidth
+                    calcIsoX(item.Position.X, item.Position.Y) -  tileWidth
                         < camera.width + camera.xOffset) &&
-                    (calcIsoY(item.Position.X, item.Position.Y) + 2 * tileHeight
+                    (calcIsoY(item.Position.X, item.Position.Y) +  tileHeight
                         > camera.height + camera.yOffset - camera.height &&
-                    calcIsoY(item.Position.X, item.Position.Y) - 2 * tileHeight
+                    calcIsoY(item.Position.X, item.Position.Y) -  tileHeight
                         < camera.height + camera.yOffset));
 
                 foreach (MapTile tile in visibleTiles)
@@ -81,7 +80,7 @@ namespace MAPViewer
                     isoCoords.X -= camera.xOffset;
                     isoCoords.Y -= camera.yOffset;
 
-                    Texture2D renderTexture;
+                    Texture2D renderTexture = null;
 
                     int tile_id_texture = tile.Texture;
 
@@ -90,37 +89,35 @@ namespace MAPViewer
                     switch (tile_id_texture)
                     {
                         case 225:
-                            renderTexture = textureList.Find(texture => texture.type.Equals("tester")).getTexture2D();
+                            renderTexture = Textures["tester", 0].getTexture2D();
                             break;
                         case 226:
-                            renderTexture = textureList.Find(texture => texture.type.Equals("tester2")).getTexture2D();
+                            renderTexture = Textures["tester2", 0].getTexture2D();
                             break;
                         case 200:
-                            renderTexture = textureList.Find(texture => texture.type.Equals("forest1")).getTexture2D();
+                            renderTexture = Textures["forest1", 0].getTexture2D();
                             break;
                         case 201:
-                            renderTexture = textureList.Find(texture => texture.type.Equals("forest2")).getTexture2D();
+                            renderTexture = Textures["forest2", 0].getTexture2D();
                             break;
                         default:
                             if (tile_id_texture < 202 || tile_id_texture >= 218)
                             {
                                 if (tile_id_texture >= 227 && tile_id_texture < 232)
                                 {
-                                    renderTexture = textureList[textureList.FindIndex(item => item.type.Equals("rock02")) +
-                                        tile_id_texture - 227].getTexture2D();
+                                    renderTexture = Textures["rock" +
+                                        (2 + tile_id_texture - 227).ToString("#0#"), 0].getTexture2D();
                                     break;
                                 }
                                 else if (tile_id_texture >= 98 && tile_id_texture < 114)
                                 {
-                                    renderTexture = textureList.Find(texture => texture.type.Equals("rockrim")
-                                        && texture.id == tile_id_texture - 98).getTexture2D();
+                                    renderTexture = Textures["rockrim", tile_id_texture - 98].getTexture2D();
                                     break;
                                 }
                             }
                             else tile_id_texture = 0;
 
-                            renderTexture = textureList.Find(texture => texture.type.Equals("maptile")
-                                && texture.id == tile_id_texture).getTexture2D();
+                            renderTexture = Textures["maptile", tile_id_texture].getTexture2D();
                             break;
                     }
 
@@ -130,8 +127,7 @@ namespace MAPViewer
 
                     if (tile.Road != 0)
                     {
-                        renderTexture = textureList.Find(texture => texture.type.Equals("roads")
-                            && texture.id == tile.Road - 1).getTexture2D();
+                        renderTexture = Textures["roads", tile.Road - 1].getTexture2D();
                         spriteBatch.Draw(renderTexture, new Vector2(
                             isoCoords.X - (renderTexture.Width - tileWidth),
                             isoCoords.Y - (renderTexture.Height - tileHeight / 2)), Color.White);
@@ -149,7 +145,8 @@ namespace MAPViewer
                 MapObject map_object_1 = map.Objects.Find(item => item.Position.X == selectedTile.X &&
                         item.Position.Y == selectedTile.Y);
 
-                string mousecoords = string.Format(" {0},{1} {2}", selectedTile.X, selectedTile.Y, (map_object_1 != null ? map_object_1.ClassID.ToString() : "null"));
+                string mousecoords = string.Format(" {0},{1} {2}", selectedTile.X, selectedTile.Y,
+                    (map_object_1 != null ? map_object_1.Class.ToString() : "null"));
                 spriteBatch.DrawString(spriteFont, mousecoords, new Vector2(
                     mousePosition.X + 16, mousePosition.Y - 14), Color.Black);
                 spriteBatch.DrawString(spriteFont, mousecoords, new Vector2(
@@ -164,8 +161,7 @@ namespace MAPViewer
                     isoCoords.X -= camera.xOffset;
                     isoCoords.Y -= camera.yOffset;
 
-                    Texture2D renderTexture = textureList.Find(texture => texture.type.Equals("tileptr")
-                        && texture.id == 12).getTexture2D();
+                    Texture2D renderTexture = Textures["tileptr", 12].getTexture2D();
                     spriteBatch.Draw(renderTexture, new Vector2(
                         isoCoords.X - (renderTexture.Width - tileWidth),
                         isoCoords.Y - (renderTexture.Height - tileHeight / 2)), Color.White);
@@ -174,19 +170,28 @@ namespace MAPViewer
 
                 // drawing object
                 // now just draw red arrow
-                foreach (MapTile tile in visibleTiles)
+
+                List<MapObject> visibleObjects = map.Objects.FindAll(item => (
+                    calcIsoX(item.Position.X, item.Position.Y) + 5 * tileWidth
+                        > camera.width + camera.xOffset - camera.width &&
+                    calcIsoX(item.Position.X, item.Position.Y) - 5 * tileWidth
+                        < camera.width + camera.xOffset) &&
+                    (calcIsoY(item.Position.X, item.Position.Y) + 5 * tileHeight
+                        > camera.height + camera.yOffset - camera.height &&
+                    calcIsoY(item.Position.X, item.Position.Y) - 5 * tileHeight
+                        < camera.height + camera.yOffset));
+
+                foreach (MapObject map_object in visibleObjects)
                 {
-                    Point isoCoords = calcIsoXY(tile.Position.X, tile.Position.Y);
+                    Point isoCoords = calcIsoXY(map_object.Position.X, map_object.Position.Y);
                     isoCoords.X -= camera.xOffset;
                     isoCoords.Y -= camera.yOffset;
 
-                    MapObject map_object = map.Objects.Find(item => item.Position.X == tile.Position.X &&
-                        item.Position.Y == tile.Position.Y);
 
                     if (map_object != null)
                     {
                         string texture_name = "doogle";
-                        switch (map_object.ClassID)
+                        switch (map_object.Class)
                         {
                             case 0:
                                 texture_name = "bigfir";
@@ -234,9 +239,9 @@ namespace MAPViewer
                                 texture_name = "crate";
                                 break;
                             default:
-                                throw new Exception(String.Format("Unhandled class id: {0}", map_object.ClassID));
+                                throw new Exception(String.Format("Unhandled class id: {0}", map_object.Class));
                         }
-                        GameTextures2D gameTexture = textureList.Find(texture => texture.type.Equals(texture_name));
+                        GameTexture2D gameTexture = Textures[texture_name, 0];
                         if (gameTexture != null)
                             spriteBatch.Draw(gameTexture.getTexture2D(), new Vector2(
                                 isoCoords.X - gameTexture.offset.X + tileWidth / 2,
@@ -257,80 +262,10 @@ namespace MAPViewer
             this.spriteFont = spriteFont;
             this.spriteFontBig = spriteFontBig;
             this.content = content;
-            this.textureList = new List<GameTextures2D>();
 
             map = new MAPFile(@"D:\beasts\savegam0.sav");
 
-            video = new BOXFile(@"D:\beasts\VIDEO.BOX");
-            LoadTexturesFromMFB("maptile.mfb");
-            LoadTexturesFromMFB("roads.mfb");
-            LoadTexturesFromMFB("tester.mfb");
-            LoadTexturesFromMFB("tester2.mfb");
-            LoadTexturesFromMFB("forest1.mfb");
-            LoadTexturesFromMFB("forest2.mfb");
-            LoadTexturesFromMFB("rockrim.mfb");
-            LoadTexturesFromMFB("rock02.mfb");
-            LoadTexturesFromMFB("rock03.mfb");
-            LoadTexturesFromMFB("rock04.mfb");
-            LoadTexturesFromMFB("rock05.mfb");
-            LoadTexturesFromMFB("rock06.mfb");
-            LoadTexturesFromMFB("doogle.mfb");
-            LoadTexturesFromMFB("tileptr.mfb");
-
-            LoadTexturesFromMFB("bigfir.mfb");
-            LoadTexturesFromMFB("tree10.mfb");
-            LoadTexturesFromMFB("poison.mfb");
-            LoadTexturesFromMFB("villager.mfb");
-            LoadTexturesFromMFB("d_male.mfb");
-            LoadTexturesFromMFB("tree02.mfb");
-            LoadTexturesFromMFB("toolshed.mfb");
-            LoadTexturesFromMFB("chikfeld.mfb");
-            LoadTexturesFromMFB("peashut.mfb");
-            LoadTexturesFromMFB("owner.mfb");
-            LoadTexturesFromMFB("campfire.mfb");
-            LoadTexturesFromMFB("crate.mfb");
-            LoadTexturesFromMFB("cowwalk.mfb");
-            LoadTexturesFromMFB("gob_silv.mfb");
-        }
-
-
-        public void LoadTexturesFromMFB(string name)
-        {
-            MFBFile mfb = new MFBFile(video.Entries.Find(
-                    item => item.filename == name).data);
-            for (int i = 0; i < mfb.Entries.Count; i++)
-                textureList.Add(
-                    new GameTextures2D(
-                        GetTexture2DFromBitmap(new System.Drawing.Bitmap(mfb.Entries[i])),
-                        mfb.Offset,
-                        name.Replace(".mfb", null),
-                        i
-                        )
-                    );
-        }
-
-        // modified https://stackoverflow.com/a/2870399
-        public Texture2D GetTexture2DFromBitmap(System.Drawing.Bitmap bitmap)
-        {
-            Texture2D tex = new Texture2D(graphicsDevice, bitmap.Width, bitmap.Height, true, SurfaceFormat.Bgra32);
-
-            System.Drawing.Imaging.BitmapData data = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height), System.Drawing.Imaging.ImageLockMode.ReadOnly, bitmap.PixelFormat);
-
-            int bufferSize = data.Height * data.Stride;
-
-            //create data buffer 
-            byte[] bytes = new byte[bufferSize];
-
-            // copy bitmap data into buffer
-            Marshal.Copy(data.Scan0, bytes, 0, bytes.Length);
-
-            // copy our buffer to the texture
-            tex.SetData(bytes);
-
-            // unlock the bitmap data
-            bitmap.UnlockBits(data);
-
-            return tex;
+            Textures = new GameTextures(graphicsDevice, @"D:\beasts\VIDEO.BOX");
         }
 
         public void handleMouse(GameMouse mouse, Camera camera)
