@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System;
+using System.Linq;
 
 namespace MAPViewer
 {
@@ -22,12 +23,12 @@ namespace MAPViewer
         public GameTexture2D this[string name, int frame]
         {
             get {
-                GameTexture2D texture = textureList.Find(item => item.type.Equals(name) && item.id == frame);
+                GameTexture2D texture = textureList.FirstOrDefault(item => item.Type.Equals(name) && item.ID == frame);
                 if (texture == null)
                 {
                     BOXFile.Entry entry;
-                    if ((entry = BOX.Entries.Find(item => item.filename == name + ".mfb")) == null)
-                        throw new Exception(String.Format("Texture (name: {0}) doesn't exists.", name + ".mfb"));
+                    if ((entry = BOX.Entries.FirstOrDefault(item => item.filename == name + ".mfb")) == null)
+                        throw new Exception($"Texture (name: {name}.mfb) doesn't exists.");
 
                     MFBFile mfb = new MFBFile(entry.data);
 
@@ -45,7 +46,7 @@ namespace MAPViewer
                 }
 
                 if (texture == null)
-                    throw new Exception(String.Format("{0}: frame {1} doesn't exists.", name + ".mfb", frame));
+                    throw new Exception($"{name}.mfb: frame {frame} doesn't exists.");
 
                 return texture;
             }
@@ -56,7 +57,9 @@ namespace MAPViewer
         {
             Texture2D tex = new Texture2D(graphicsDevice, bitmap.Width, bitmap.Height, true, SurfaceFormat.Bgra32);
 
-            System.Drawing.Imaging.BitmapData data = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height), System.Drawing.Imaging.ImageLockMode.ReadOnly, bitmap.PixelFormat);
+            System.Drawing.Imaging.BitmapData data = bitmap.LockBits(
+                new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
+                System.Drawing.Imaging.ImageLockMode.ReadOnly, bitmap.PixelFormat);
 
             int bufferSize = data.Height * data.Stride;
 
@@ -79,16 +82,16 @@ namespace MAPViewer
     public class GameTexture2D
     {
         public Texture2D texture;
-        public Point offset;
-        public string type;
-        public int id;
+        public Point Offset;
+        public string Type;
+        public int ID;
 
         public GameTexture2D(Texture2D texture, Point offset, string type, int id)
         {
             this.texture = texture;
-            this.offset = offset;
-            this.type = type;
-            this.id = id;
+            this.Offset = offset;
+            this.Type = type;
+            this.ID = id;
         }
 
         public Texture2D getTexture2D()

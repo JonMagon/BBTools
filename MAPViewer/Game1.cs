@@ -1,33 +1,32 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Windows.Forms;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameConsole;
-using System;
-using System.Windows.Forms;
 
 namespace MAPViewer
 {
     /// <summary>
-    /// This is the main type for your game.
+    ///     This is the main Type for your game.
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-
-        float elapsedTime = 0f;
-        float elapsedTimeAnimate = 0f;
-
         public static int WINDOW_WIDTH = 1200;
         public static int WINDOW_HEIGHT = 600;
+        private Camera camera;
+
+        private float elapsedTime;
+        private float elapsedTimeAnimate;
+
+        private Map gameMap;
+        private GameMouse gameMouse;
+        private readonly GraphicsDeviceManager graphics;
+        private GameKeyboard keyboard;
+        private SpriteBatch spriteBatch;
 
         private SpriteFont spriteFont;
         private SpriteFont spriteFontBig;
-
-        private Map gameMap;
-        private Camera camera;
-        private GameMouse gameMouse;
-        private GameKeyboard keyboard;
 
         public Game1()
         {
@@ -39,10 +38,10 @@ namespace MAPViewer
         }
 
         /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
+        ///     Allows the game to perform any initialization it needs to before starting to run.
+        ///     This is where it can query for any required services and load any non-graphic
+        ///     related content.  Calling base.Initialize will enumerate through any components
+        ///     and initialize them as well.
         /// </summary>
         protected override void Initialize()
         {
@@ -62,7 +61,7 @@ namespace MAPViewer
 
             Services.AddService(typeof(SpriteBatch), spriteBatch);
 
-            GameConsole console = new GameConsole(this, spriteBatch, new GameConsoleOptions
+            var console = new GameConsole(this, spriteBatch, new GameConsoleOptions
             {
                 ToggleKey = 192,
                 Height = 250,
@@ -85,7 +84,7 @@ namespace MAPViewer
                     return "ERROR: Arguments x and y must be both positive and less than 192";
                 camera.xOffset = gameMap.calcIsoX(x, y) - WINDOW_WIDTH / 2;
                 camera.yOffset = gameMap.calcIsoY(x, y) - WINDOW_HEIGHT / 2;
-                return string.Format("SUCCESS: New position is {0} {1}", x, y);
+                return $"SUCCESS: New position is {x} {y}";
             }, "Set new position. Arguments: x y");
 
             keyboard.console = console;
@@ -93,12 +92,12 @@ namespace MAPViewer
             spriteFont = Content.Load<SpriteFont>("font");
             spriteFontBig = Content.Load<SpriteFont>("fontBig");
 
-            gameMap.load(Content, GraphicsDevice, spriteBatch, spriteFont, spriteFontBig);
+            gameMap.Load(Content, GraphicsDevice, spriteBatch, spriteFont, spriteFontBig);
         }
 
         /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
+        ///     UnloadContent will be called once per game and is the place to unload
+        ///     game-specific content.
         /// </summary>
         protected override void UnloadContent()
         {
@@ -111,14 +110,13 @@ namespace MAPViewer
             elapsedTimeAnimate += gameTime.ElapsedGameTime.Milliseconds;
 
             gameMouse.state = Mouse.GetState();
-            gameMouse.camera = this.camera;
+            gameMouse.camera = camera;
 
             // temp
             if (elapsedTimeAnimate > 100f)
             {
                 elapsedTimeAnimate -= 100f;
-                Map.mark_object_id++;
-                if (Map.mark_object_id > 3) Map.mark_object_id = 0;
+                Map.mark_object_id = (Map.mark_object_id + 1) % 7;
             }
 
             gameMouse.updateCursor();
@@ -139,10 +137,11 @@ namespace MAPViewer
             try
             {
                 gameMap.drawMap(camera);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + Environment.NewLine +
-                    "This application will be terminated.", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{ex.Message}{Environment.NewLine}This application will be terminated.",
+                    "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Exit();
             }
 
