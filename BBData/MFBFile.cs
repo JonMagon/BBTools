@@ -1,36 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace BBData
 {
     public class MFBFile
     {
-        public List<Image> Entries { get; private set; } = new List<Image>();
-        public int Width { get; private set; }
-        public int Height { get; private set; }
-        public Point Offset { get; private set; }
-        public bool IsCompressed { get; private set; }
-        public bool IsTransparent { get; private set; }
-
+        /// <summary>
+        /// Creates an Image from MFB file using palette.
+        /// </summary>
+        /// <param name="filename">Path to .mfb file</param>
+        /// <param name="palette">The color palette used for this Image.</param>
         public MFBFile(string filename, Palettes.TypePalette palette = Palettes.TypePalette.PALETTE)
-            : this(File.ReadAllBytes(filename), palette) { }
+            : this(File.ReadAllBytes(filename), palette)
+        {
+        }
 
+        /// <summary>
+        /// Creates an Image from byte array (MFB format) using palette.
+        /// </summary>
+        /// <param name="data">Byte array.</param>
+        /// <param name="palette">The color palette used for this Image.</param>
         public MFBFile(byte[] data, Palettes.TypePalette palette = Palettes.TypePalette.PALETTE)
         {
-            using (MemoryStream stream = new MemoryStream(data))
+            using (var stream = new MemoryStream(data))
             {
-                using (BinaryReader binr = new BinaryReader(stream, Encoding.ASCII))
+                using (var binr = new BinaryReader(stream, Encoding.ASCII))
                 {
                     if (!binr.ReadChars(3).SequenceEqual("MFB"))
                         throw new Exception("File is corrupted. Bad signature.");
 
-                    int version = int.Parse(new string(binr.ReadChars(3))); // 101
+                    var version = int.Parse(new string(binr.ReadChars(3))); // 101
 
                     Width = binr.ReadInt16();
                     Height = binr.ReadInt16();
@@ -52,37 +57,44 @@ namespace BBData
                     Offset = new Point(binr.ReadInt16(), binr.ReadInt16());
 
                     short flags = binr.ReadInt16(),
-                          numsprites = binr.ReadInt16();
+                        numsprites = binr.ReadInt16();
 
-                    int spritesize = Width * Height;
+                    var spritesize = Width * Height;
 
-                    IsTransparent = (flags & (byte)EntryFlags.Transparent) != 0;
+                    IsTransparent = (flags & (byte) EntryFlags.Transparent) != 0;
 
-                    if (IsCompressed = ((flags & (byte)EntryFlags.Compressed) != 0))
-                        for (int i = 0; i < numsprites; i++)
+                    if (IsCompressed = (flags & (byte) EntryFlags.Compressed) != 0)
+                        for (var i = 0; i < numsprites; i++)
                         {
-                            int size = binr.ReadInt32();
+                            var size = binr.ReadInt32();
                             Entries.Add(CreateImage(unRLE(binr.ReadBytes(size), spritesize),
                                 palette));
                         }
-                    else for (int i = 0; i < numsprites; i++)
+                    else
+                        for (var i = 0; i < numsprites; i++)
                             Entries.Add(CreateImage(binr.ReadBytes(spritesize),
                                 palette));
                 }
             }
         }
 
-        static byte[] unRLE(byte[] input, int spritesize)
+        public List<Image> Entries { get; } = new List<Image>();
+        public int Width { get; }
+        public int Height { get; }
+        public Point Offset { get; }
+        public bool IsCompressed { get; }
+        public bool IsTransparent { get; }
+
+        private static byte[] unRLE(byte[] input, int spritesize)
         {
-            byte[] output = new byte[spritesize];
+            var output = new byte[spritesize];
 
             uint inPos = 0, outPos = 0;
-            byte copyByte = input[0];
+            var copyByte = input[0];
             while (outPos < output.Length)
-            {
                 if (input[inPos] == copyByte)
                 {
-                    byte count = input[++inPos];
+                    var count = input[++inPos];
                     ++inPos;
 
                     while (count-- != 0)
@@ -92,51 +104,50 @@ namespace BBData
                 {
                     output[outPos++] = input[inPos++];
                 }
-            }
             return output;
         }
 
         private Image CreateImage(byte[] buffer, Palettes.TypePalette palette)
         {
             Image _img;
-            Bitmap bmp = new Bitmap(Width, Height, PixelFormat.Format8bppIndexed);
-            byte[] bytespalette = Palettes.GetPalette(palette);
-            ColorPalette typepalette = bmp.Palette;
+            var bmp = new Bitmap(Width, Height, PixelFormat.Format8bppIndexed);
+            var bytespalette = Palettes.GetPalette(palette);
+            var typepalette = bmp.Palette;
 
-            for (int i = 0; i < typepalette.Entries.Length; i++)
-                typepalette.Entries[i] = System.Drawing.Color.FromArgb(
+            for (var i = 0; i < typepalette.Entries.Length; i++)
+                typepalette.Entries[i] = Color.FromArgb(
                     red: bytespalette[4 * i],
                     green: bytespalette[4 * i + 1],
                     blue: bytespalette[4 * i + 2],
                     alpha: bytespalette[4 * i + 3]
-                    );
+                );
 
             bmp.Palette = typepalette;
 
-            System.Drawing.Rectangle rect = new System.Drawing.Rectangle(System.Drawing.Point.Empty, bmp.Size);
-            BitmapData bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, bmp.PixelFormat);
+            var rect = new Rectangle(Point.Empty, bmp.Size);
+            var bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, bmp.PixelFormat);
             try
             {
-                 for (int r = 0; r < Height; r++)
-                     Marshal.Copy(buffer, Width * r, bmpData.Scan0 + r * bmpData.Stride, Width);
+                for (var r = 0; r < Height; r++)
+                    Marshal.Copy(buffer, Width * r, bmpData.Scan0 + r * bmpData.Stride, Width);
             }
             finally
             {
                 bmp.UnlockBits(bmpData);
-                _img = (Image)bmp;
+                _img = bmp;
             }
 
 
             if (IsTransparent)
             {
-                System.Drawing.Color pixel = bmp.GetPixel(0, 0);
-                bmp.MakeTransparent(System.Drawing.Color.FromArgb(255, pixel.R, pixel.G, pixel.B));
+                var pixel = bmp.GetPixel(0, 0);
+                bmp.MakeTransparent(Color.FromArgb(255, pixel.R, pixel.G, pixel.B));
             }
 
             return _img;
         }
 
-        enum EntryFlags
+        private enum EntryFlags
         {
             Transparent = 1,
             Compressed = 2,
@@ -159,31 +170,8 @@ namespace BBData
             TITLEPALETTE
         }
 
-        public static byte[] GetPalette(TypePalette type)
+        private static readonly byte[] PALETTE =
         {
-            switch (type)
-            {
-                case TypePalette.PALETTE:
-                    return PALETTE;
-                case TypePalette.AUTUMN_PALETTE:
-                    return AUTUMN_PALETTE;
-                case TypePalette.WINTER_PALETTE:
-                    return WINTER_PALETTE;
-                case TypePalette.SUMMER_PALETTE:
-                    return SUMMER_PALETTE;
-                case TypePalette.SPRING_PALETTE:
-                    return SPRING_PALETTE;
-                case TypePalette.MISSIONPALETTE:
-                    return MISSIONPALETTE;
-                case TypePalette.LOADINGPALETTE:
-                    return LOADINGPALETTE;
-                case TypePalette.TITLEPALETTE:
-                    return TITLEPALETTE;
-            }
-            return null;
-        }
-
-        static byte[] PALETTE = new byte[] {
             0x00, 0x00, 0x00, 0xFF, 0xE3, 0x53, 0x00, 0xFF,
             0xCF, 0x4B, 0x07, 0xFF, 0xBF, 0x43, 0x0F, 0xFF,
             0xAB, 0x3F, 0x17, 0xFF, 0x9B, 0x3B, 0x1B, 0xFF,
@@ -312,9 +300,10 @@ namespace BBData
             0x3F, 0x3F, 0x53, 0xFF, 0x2F, 0x2F, 0x43, 0xFF,
             0x23, 0x23, 0x33, 0xFF, 0x17, 0x17, 0x23, 0xFF,
             0x0F, 0x0F, 0x1B, 0xFF, 0x37, 0x47, 0x8F, 0xFF
-            };
+        };
 
-        static byte[] AUTUMN_PALETTE = new byte[] {
+        private static readonly byte[] AUTUMN_PALETTE =
+        {
             0x00, 0x00, 0x00, 0xFF, 0xE3, 0x53, 0x00, 0xFF,
             0xCF, 0x4B, 0x07, 0xFF, 0xBF, 0x43, 0x0F, 0xFF,
             0xAB, 0x3F, 0x17, 0xFF, 0x9B, 0x3B, 0x1B, 0xFF,
@@ -443,9 +432,10 @@ namespace BBData
             0x3F, 0x3F, 0x53, 0xFF, 0x2F, 0x2F, 0x43, 0xFF,
             0x23, 0x23, 0x33, 0xFF, 0x17, 0x17, 0x23, 0xFF,
             0x0F, 0x0F, 0x1B, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
-            };
+        };
 
-        static byte[] WINTER_PALETTE = new byte[] {
+        private static readonly byte[] WINTER_PALETTE =
+        {
             0x00, 0x00, 0x00, 0xFF, 0xE3, 0x53, 0x00, 0xFF,
             0xCF, 0x4B, 0x07, 0xFF, 0xBF, 0x43, 0x0F, 0xFF,
             0xAB, 0x3F, 0x17, 0xFF, 0x9B, 0x3B, 0x1B, 0xFF,
@@ -574,9 +564,10 @@ namespace BBData
             0x3F, 0x3F, 0x53, 0xFF, 0x2F, 0x2F, 0x43, 0xFF,
             0x23, 0x23, 0x33, 0xFF, 0x17, 0x17, 0x23, 0xFF,
             0x0F, 0x0F, 0x1B, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
-            };
+        };
 
-        static byte[] SUMMER_PALETTE = new byte[] {
+        private static readonly byte[] SUMMER_PALETTE =
+        {
             0x00, 0x00, 0x00, 0xFF, 0xE3, 0x53, 0x00, 0xFF,
             0xCF, 0x4B, 0x07, 0xFF, 0xBF, 0x43, 0x0F, 0xFF,
             0xAB, 0x3F, 0x17, 0xFF, 0x9B, 0x3B, 0x1B, 0xFF,
@@ -705,9 +696,10 @@ namespace BBData
             0x3F, 0x3F, 0x53, 0xFF, 0x2F, 0x2F, 0x43, 0xFF,
             0x23, 0x23, 0x33, 0xFF, 0x17, 0x17, 0x23, 0xFF,
             0x0F, 0x0F, 0x1B, 0xFF, 0x37, 0x47, 0x8F, 0xFF
-            };
+        };
 
-        static byte[] SPRING_PALETTE = new byte[] {
+        private static readonly byte[] SPRING_PALETTE =
+        {
             0x00, 0x00, 0x00, 0xFF, 0xE3, 0x53, 0x00, 0xFF,
             0xCF, 0x4B, 0x07, 0xFF, 0xBF, 0x43, 0x0F, 0xFF,
             0xAB, 0x3F, 0x17, 0xFF, 0x9B, 0x3B, 0x1B, 0xFF,
@@ -836,9 +828,10 @@ namespace BBData
             0x3F, 0x3F, 0x53, 0xFF, 0x2F, 0x2F, 0x43, 0xFF,
             0x23, 0x23, 0x33, 0xFF, 0x17, 0x17, 0x23, 0xFF,
             0x0F, 0x0F, 0x1B, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
-            };
+        };
 
-        static byte[] MISSIONPALETTE = new byte[] {
+        private static readonly byte[] MISSIONPALETTE =
+        {
             0x03, 0x07, 0x13, 0xFF, 0xEC, 0xE5, 0xDE, 0xFF,
             0xEB, 0xE0, 0xD3, 0xFF, 0xEF, 0xDA, 0xCE, 0xFF,
             0xE9, 0xDC, 0xC7, 0xFF, 0xE9, 0xDD, 0xBD, 0xFF,
@@ -967,9 +960,10 @@ namespace BBData
             0x00, 0x0C, 0x20, 0xFF, 0x08, 0x14, 0x18, 0xFF,
             0x00, 0x14, 0x18, 0xFF, 0x00, 0x0C, 0x18, 0xFF,
             0x00, 0x14, 0x10, 0xFF, 0xEB, 0xE7, 0xE7, 0xFF
-            };
+        };
 
-        static byte[] LOADINGPALETTE = new byte[] {
+        private static readonly byte[] LOADINGPALETTE =
+        {
             0x0F, 0x0F, 0x12, 0xFF, 0x0E, 0x0F, 0x12, 0xFF,
             0x0F, 0x13, 0x12, 0xFF, 0x0F, 0x0F, 0x14, 0xFF,
             0x0E, 0x0F, 0x14, 0xFF, 0x0F, 0x13, 0x14, 0xFF,
@@ -1098,9 +1092,10 @@ namespace BBData
             0xEB, 0xF3, 0xF4, 0xFF, 0xEB, 0xF3, 0xF8, 0xFF,
             0xEB, 0xF3, 0xF8, 0xFF, 0xF3, 0xF3, 0xF4, 0xFF,
             0xF3, 0xF3, 0xF4, 0xFF, 0xF3, 0xF3, 0xF8, 0xFF
-            };
+        };
 
-        static byte[] TITLEPALETTE = new byte[] {
+        private static readonly byte[] TITLEPALETTE =
+        {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x53, 0xE3, 0x00,
             0x07, 0x4B, 0xCF, 0x00, 0x0F, 0x43, 0xBF, 0x00,
             0x17, 0x3F, 0xAB, 0x00, 0x1B, 0x3B, 0x9B, 0x00,
@@ -1229,6 +1224,30 @@ namespace BBData
             0x53, 0x3F, 0x3F, 0x00, 0x43, 0x2F, 0x2F, 0x00,
             0x33, 0x23, 0x23, 0x00, 0x23, 0x17, 0x17, 0x00,
             0x1B, 0x0F, 0x0F, 0x00, 0xFF, 0xFF, 0xFF, 0x00
-            };
+        };
+
+        public static byte[] GetPalette(TypePalette type)
+        {
+            switch (type)
+            {
+                case TypePalette.PALETTE:
+                    return PALETTE;
+                case TypePalette.AUTUMN_PALETTE:
+                    return AUTUMN_PALETTE;
+                case TypePalette.WINTER_PALETTE:
+                    return WINTER_PALETTE;
+                case TypePalette.SUMMER_PALETTE:
+                    return SUMMER_PALETTE;
+                case TypePalette.SPRING_PALETTE:
+                    return SPRING_PALETTE;
+                case TypePalette.MISSIONPALETTE:
+                    return MISSIONPALETTE;
+                case TypePalette.LOADINGPALETTE:
+                    return LOADINGPALETTE;
+                case TypePalette.TITLEPALETTE:
+                    return TITLEPALETTE;
+            }
+            return null;
+        }
     }
 }

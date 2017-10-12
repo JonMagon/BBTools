@@ -14,6 +14,7 @@ namespace MAPViewer
     {
         public static int WINDOW_WIDTH = 1200;
         public static int WINDOW_HEIGHT = 600;
+        private readonly GraphicsDeviceManager graphics;
         private Camera camera;
 
         private float elapsedTime;
@@ -21,7 +22,6 @@ namespace MAPViewer
 
         private Map gameMap;
         private GameMouse gameMouse;
-        private readonly GraphicsDeviceManager graphics;
         private GameKeyboard keyboard;
         private SpriteBatch spriteBatch;
 
@@ -82,8 +82,8 @@ namespace MAPViewer
                     return "ERROR: Illegal arguments";
                 if (x < 0 || x > 192 || y < 0 || y > 192)
                     return "ERROR: Arguments x and y must be both positive and less than 192";
-                camera.xOffset = gameMap.calcIsoX(x, y) - WINDOW_WIDTH / 2;
-                camera.yOffset = gameMap.calcIsoY(x, y) - WINDOW_HEIGHT / 2;
+                camera.XOffset = gameMap.CalcIsoX(x, y) - WINDOW_WIDTH / 2;
+                camera.YOffset = gameMap.CalcIsoY(x, y) - WINDOW_HEIGHT / 2;
                 return $"SUCCESS: New position is {x} {y}";
             }, "Set new position. Arguments: x y");
 
@@ -122,7 +122,7 @@ namespace MAPViewer
             gameMouse.updateCursor();
             gameMouse.handleMouse();
 
-            gameMap.handleMouse(gameMouse, camera);
+            gameMap.HandleMouse(gameMouse, camera);
 
             keyboard.Update();
 
@@ -136,7 +136,7 @@ namespace MAPViewer
 
             try
             {
-                gameMap.drawMap(camera);
+                gameMap.DrawMap(camera);
             }
             catch (Exception ex)
             {

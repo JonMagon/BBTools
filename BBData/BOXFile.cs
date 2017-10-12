@@ -1,28 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.IO;
 
 namespace BBData
 {
     public class BOXFile
     {
-        public List<Entry> Entries { get; private set; } = new List<Entry>();
-
-        // https://stackoverflow.com/a/1403542
-        private string TrimFromZero(string input)
-        {
-            int index = input.IndexOf('\0');
-            if (index < 0)
-                return input;
-
-            return input.Substring(0, index);
-        }
-
+        /// <summary>
+        /// Open BOX archive.
+        /// </summary>
+        /// <param name="filename">Path to BOX file.</param>
         public BOXFile(string filename)
         {
-            using (BinaryReader binr = new BinaryReader(File.OpenRead(filename), Encoding.ASCII))
+            using (var binr = new BinaryReader(File.OpenRead(filename), Encoding.ASCII))
             {
                 if (!binr.ReadChars(3).SequenceEqual("BOX"))
                     throw new Exception("Resource archive is corrupted. Bad signature.");
@@ -44,54 +36,66 @@ namespace BBData
                                 binr.ReadUInt16(),
                                 binr.ReadUInt16(),
                                 binr.ReadUInt16()
-                                ),
-                            (size = binr.ReadInt32()),
+                            ),
+                            size = binr.ReadInt32(),
                             binr.ReadBytes(size)
-                            )
-                        );
+                        )
+                    );
             }
+        }
+
+        public List<Entry> Entries { get; } = new List<Entry>();
+
+        // https://stackoverflow.com/a/1403542
+        private string TrimFromZero(string input)
+        {
+            var index = input.IndexOf('\0');
+            if (index < 0)
+                return input;
+
+            return input.Substring(0, index);
         }
 
         public class Entry
         {
-            public string filename;
-            public string path;
-            public EntryTime time;
-            public int size;
-            public byte[] data;
+            public byte[] Data;
+            public string Filename;
+            public string Path;
+            public int Size;
+            public EntryTime Time;
 
             public Entry(string filename, string path, EntryTime time, int size, byte[] data)
             {
-                this.filename = filename;
-                this.path = path;
-                this.time = time;
-                this.size = size;
-                this.data = data;
+                Filename = filename;
+                Path = path;
+                Time = time;
+                Size = size;
+                Data = data;
             }
         }
 
         public class EntryTime
         {
-            public ushort year;
-            public ushort month;
-            public ushort dayofweek;
-            public ushort day;
-            public ushort hour;
-            public ushort minute;
-            public ushort second;
-            public ushort milliseconds;
+            public ushort Day;
+            public ushort Dayofweek;
+            public ushort Hour;
+            public ushort Milliseconds;
+            public ushort Minute;
+            public ushort Month;
+            public ushort Second;
+            public ushort Year;
 
             public EntryTime(ushort year, ushort month, ushort dayofweek,
                 ushort day, ushort hour, ushort minute, ushort second, ushort milliseconds)
             {
-                this.year = year;
-                this.month = month;
-                this.dayofweek = dayofweek;
-                this.day = day;
-                this.hour = hour;
-                this.minute = minute;
-                this.second = second;
-                this.milliseconds = milliseconds;
+                Year = year;
+                Month = month;
+                Dayofweek = dayofweek;
+                Day = day;
+                Hour = hour;
+                Minute = minute;
+                Second = second;
+                Milliseconds = milliseconds;
             }
         }
     }

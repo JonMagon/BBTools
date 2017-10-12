@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.spritesBox = new System.Windows.Forms.ListView();
             this.paletteBox = new System.Windows.Forms.ComboBox();
@@ -38,8 +37,8 @@
             this.status = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -100,7 +99,7 @@
             "TITLEPALETTE"});
             this.paletteBox.Location = new System.Drawing.Point(3, 3);
             this.paletteBox.Name = "paletteBox";
-            this.paletteBox.Size = new System.Drawing.Size(215, 21);
+            this.paletteBox.Size = new System.Drawing.Size(218, 21);
             this.paletteBox.TabIndex = 2;
             this.paletteBox.SelectedIndexChanged += new System.EventHandler(this.paletteBox_SelectedIndexChanged);
             // 
@@ -109,10 +108,11 @@
             this.filter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.filter.Enabled = false;
             this.filter.ForeColor = System.Drawing.SystemColors.WindowText;
             this.filter.Location = new System.Drawing.Point(3, 30);
             this.filter.Name = "filter";
-            this.filter.Size = new System.Drawing.Size(215, 20);
+            this.filter.Size = new System.Drawing.Size(218, 20);
             this.filter.TabIndex = 1;
             this.filter.TextChanged += new System.EventHandler(this.filter_TextChanged);
             // 
@@ -124,7 +124,7 @@
             this.filesBox.FormattingEnabled = true;
             this.filesBox.Location = new System.Drawing.Point(3, 59);
             this.filesBox.Name = "filesBox";
-            this.filesBox.Size = new System.Drawing.Size(215, 303);
+            this.filesBox.Size = new System.Drawing.Size(218, 303);
             this.filesBox.TabIndex = 0;
             this.filesBox.SelectedIndexChanged += new System.EventHandler(this.filesBox_SelectedIndexChanged);
             // 
@@ -163,24 +163,24 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
-            // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Image = global::SpriteViewer.Properties.Resources.open;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(100, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Image = global::SpriteViewer.Properties.Resources.close;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -192,7 +192,6 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainer1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "SpriteViewer";
             this.splitContainer1.Panel1.ResumeLayout(false);

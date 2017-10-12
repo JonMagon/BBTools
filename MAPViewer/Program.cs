@@ -4,18 +4,20 @@ namespace MAPViewer
 {
 #if WINDOWS || LINUX
     /// <summary>
-    /// The main class.
+    ///     The main class.
     /// </summary>
     public static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        ///     The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             using (var game = new Game1())
+            {
                 game.Run();
+            }
         }
     }
 #endif

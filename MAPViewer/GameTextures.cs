@@ -1,45 +1,47 @@
-﻿using BBData;
+﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
 using System.Drawing;
-using System.Runtime.InteropServices;
-using System;
+using System.Drawing.Imaging;
 using System.Linq;
+using System.Runtime.InteropServices;
+using BBData;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MAPViewer
 {
     public class GameTextures
     {
-        private GraphicsDevice graphicsDevice;
-        private BOXFile BOX;
-        private List<GameTexture2D> textureList = new List<GameTexture2D>();
+        private readonly BOXFile BOX;
+        private readonly GraphicsDevice graphicsDevice;
+        private readonly List<GameTexture2D> textureList = new List<GameTexture2D>();
 
         public GameTextures(GraphicsDevice graphicsDevice, string boxname)
         {
             this.graphicsDevice = graphicsDevice;
-            this.BOX = new BOXFile(boxname);
+            BOX = new BOXFile(boxname);
         }
 
         public GameTexture2D this[string name, int frame]
         {
-            get {
-                GameTexture2D texture = textureList.FirstOrDefault(item => item.Type.Equals(name) && item.ID == frame);
+            get
+            {
+                var texture = textureList.FirstOrDefault(item => item.Type.Equals(name) && item.ID == frame);
                 if (texture == null)
                 {
                     BOXFile.Entry entry;
-                    if ((entry = BOX.Entries.FirstOrDefault(item => item.filename == name + ".mfb")) == null)
+                    if ((entry = BOX.Entries.FirstOrDefault(item => item.Filename == name + ".mfb")) == null)
                         throw new Exception($"Texture (name: {name}.mfb) doesn't exists.");
 
-                    MFBFile mfb = new MFBFile(entry.data);
+                    var mfb = new MFBFile(entry.Data);
 
-                    for (int i = 0; i < mfb.Entries.Count; i++)
+                    for (var i = 0; i < mfb.Entries.Count; i++)
                     {
-                        GameTexture2D item = new GameTexture2D(
-                            GetTexture2DFromBitmap(new System.Drawing.Bitmap(mfb.Entries[i])),
+                        var item = new GameTexture2D(
+                            GetTexture2DFromBitmap(new Bitmap(mfb.Entries[i])),
                             mfb.Offset,
                             name.Replace(".mfb", null),
                             i
-                            );
+                        );
                         textureList.Add(item);
                         if (i == frame) texture = item;
                     }
@@ -53,18 +55,18 @@ namespace MAPViewer
         }
 
         // modified https://stackoverflow.com/a/2870399
-        private Texture2D GetTexture2DFromBitmap(System.Drawing.Bitmap bitmap)
+        private Texture2D GetTexture2DFromBitmap(Bitmap bitmap)
         {
-            Texture2D tex = new Texture2D(graphicsDevice, bitmap.Width, bitmap.Height, true, SurfaceFormat.Bgra32);
+            var tex = new Texture2D(graphicsDevice, bitmap.Width, bitmap.Height, true, SurfaceFormat.Bgra32);
 
-            System.Drawing.Imaging.BitmapData data = bitmap.LockBits(
-                new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
-                System.Drawing.Imaging.ImageLockMode.ReadOnly, bitmap.PixelFormat);
+            var data = bitmap.LockBits(
+                new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+                ImageLockMode.ReadOnly, bitmap.PixelFormat);
 
-            int bufferSize = data.Height * data.Stride;
+            var bufferSize = data.Height * data.Stride;
 
             //create data buffer 
-            byte[] bytes = new byte[bufferSize];
+            var bytes = new byte[bufferSize];
 
             // copy bitmap data into buffer
             Marshal.Copy(data.Scan0, bytes, 0, bytes.Length);
@@ -81,17 +83,17 @@ namespace MAPViewer
 
     public class GameTexture2D
     {
-        public Texture2D texture;
-        public Point Offset;
-        public string Type;
         public int ID;
+        public Point Offset;
+        public Texture2D texture;
+        public string Type;
 
         public GameTexture2D(Texture2D texture, Point offset, string type, int id)
         {
             this.texture = texture;
-            this.Offset = offset;
-            this.Type = type;
-            this.ID = id;
+            Offset = offset;
+            Type = type;
+            ID = id;
         }
 
         public Texture2D getTexture2D()

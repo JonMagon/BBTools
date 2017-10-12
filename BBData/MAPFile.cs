@@ -25,6 +25,10 @@ namespace BBData
             return input.Substring(0, index);
         }
 
+        /// <summary>
+        /// Load map from file.
+        /// </summary>
+        /// <param name="filename">Path to .sav or .mis file</param>
         public MAPFile(string filename)
         {
             using (BinaryReader binr = new BinaryReader(File.OpenRead(filename), Encoding.ASCII))
@@ -37,22 +41,24 @@ namespace BBData
 
                 Size = new Point(binr.ReadByte(), binr.ReadByte());
 
-                for (int x = 0; x < Size.X; x++)
+                for (int y = 0; y < Size.Y; y++)
                 {
                     int size = binr.ReadInt32();
-                    byte[] data = unRLE0(binr.ReadBytes(size), Size.Y * 0xC);
+                    byte[] data = unRLE0(binr.ReadBytes(size), Size.X * 0xC);
 
-                    for (int y = 0; y < Size.Y; y++)
+                    for (int x = 0; x < Size.X; x++)
                     {
-                        int ptr = y * 12;
+                        int ptr = x * 12;
 
-                        MapTile tile = new MapTile(new Point(y, x));
-                        tile.Texture = data[ptr + 0];
-                        tile.Road = data[ptr + 1];
-                        tile.Player = data[ptr + 2];
-                        tile.Mask1 = BitConverter.ToInt32(data, ptr + 3);
-                        tile.Unk1 = data[ptr + 7];
-                        tile.Mask2 = BitConverter.ToInt32(data, ptr + 8);
+                        MapTile tile = new MapTile(new Point(x, y))
+                        {
+                            Texture = data[ptr + 0],
+                            Road = data[ptr + 1],
+                            Player = data[ptr + 2],
+                            Mask1 = BitConverter.ToInt32(data, ptr + 3),
+                            Unk1 = data[ptr + 7],
+                            Mask2 = BitConverter.ToInt32(data, ptr + 8)
+                        };
 
                         Tiles.Add(tile);
                     }
@@ -88,12 +94,14 @@ namespace BBData
                         byte[] indexbytes = BitConverter.GetBytes(i);
                         Array.Copy(indexbytes, 0, data, 142, 4);
 
-                        MapObject map_object = new MapObject(new Point(data[0xD8], data[0xD9]));
-                        map_object.Class = data[0xD4];
-                        map_object.State = data[0xEA];
-                        map_object.Field_F2 = data[0xF2];
-                        map_object.Frame = data[0xF9];
-                        Objects.Add(map_object);
+                        MapObject mapObject = new MapObject(new Point(data[0xD8], data[0xD9]))
+                        {
+                            Class = data[0xD4],
+                            State = data[0xEA],
+                            Field_F2 = data[0xF2],
+                            Frame = data[0xF9],
+                        };
+                        Objects.Add(mapObject);
 
                         //Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8}", data[0xD8], data[0xD9], data[0xEC], data[0xD4], data[0x38], data[0xF2], data[0xA0], data[0xA1], data[0xF2]);
 

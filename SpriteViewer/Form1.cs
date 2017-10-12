@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using BBData;
-using System.Runtime.InteropServices;
 
 namespace SpriteViewer
 {
     public partial class Form1 : Form
     {
-        [DllImport("user32.dll")]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+        private Palettes.TypePalette palette = Palettes.TypePalette.SUMMER_PALETTE;
 
-        BOXFile video;
-
-        Palettes.TypePalette palette = Palettes.TypePalette.SUMMER_PALETTE;
+        private BOXFile video;
 
         public Form1()
         {
@@ -21,6 +18,10 @@ namespace SpriteViewer
             SendMessage(filter.Handle, 0x1501, 1, "Search"); // EM_SETCUEBANNER
             paletteBox.Text = "SUMMER_PALETTE";
         }
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam,
+            [MarshalAs(UnmanagedType.LPWStr)] string lParam);
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -40,6 +41,8 @@ namespace SpriteViewer
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
+                    filter.Enabled = true;
+
                     spritesBox.Clear();
                     status.Text = null;
 
@@ -47,8 +50,8 @@ namespace SpriteViewer
 
                     filesBox.Items.Clear();
 
-                    foreach (BOXFile.Entry item in video.Entries)
-                        filesBox.Items.Add(item.filename);
+                    foreach (var item in video.Entries)
+                        filesBox.Items.Add(item.Filename);
 
                     filesBox.EndUpdate();
                 }
@@ -66,28 +69,27 @@ namespace SpriteViewer
 
             try
             {
-                MFBFile mfb = new MFBFile(video.Entries.Find(
-                    item => item.filename == filesBox.SelectedItem.ToString()).data, palette);
+                var mfb = new MFBFile(video.Entries.Find(
+                    item => item.Filename == filesBox.SelectedItem.ToString()).Data, palette);
 
-                status.Text = String.Format("Size: {0} x {1}", mfb.Width, mfb.Height);
+                status.Text = $"Size: {mfb.Width} x {mfb.Height} | Offset: ({mfb.Offset.X}, {mfb.Offset.Y})";
                 if (mfb.IsTransparent) status.Text += " | Transparent";
                 if (mfb.IsCompressed) status.Text += " | Compressed";
 
-                ImageList imglist = new ImageList();
+                var imglist = new ImageList();
                 spritesBox.LargeImageList = imglist;
 
                 // Scaling
                 imglist.ImageSize = new Size(
-                    (mfb.Width <= 256 ? mfb.Width : 256),
-                    (mfb.Height <= 256 ? mfb.Height : 256));
+                    mfb.Width <= 256 ? mfb.Width : 256,
+                    mfb.Height <= 256 ? mfb.Height : 256);
                 imglist.Images.AddRange(mfb.Entries.ToArray());
 
                 spritesBox.BeginUpdate();
                 spritesBox.Items.Clear();
-                for (int i = 0; i < mfb.Entries.Count; i++)
+                for (var i = 0; i < mfb.Entries.Count; i++)
                     spritesBox.Items.Add(new ListViewItem(i.ToString(), i));
                 spritesBox.EndUpdate();
-
             }
             catch (Exception ex)
             {
@@ -100,9 +102,9 @@ namespace SpriteViewer
         {
             filesBox.BeginUpdate();
             filesBox.Items.Clear();
-            foreach (BOXFile.Entry item in video.Entries)
-                if (item.filename.Contains(filter.Text))
-                    filesBox.Items.Add(item.filename);
+            foreach (var item in video.Entries)
+                if (item.Filename.Contains(filter.Text))
+                    filesBox.Items.Add(item.Filename);
             filesBox.EndUpdate();
         }
 
