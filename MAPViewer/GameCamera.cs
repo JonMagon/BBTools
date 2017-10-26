@@ -2,7 +2,7 @@
 
 namespace MAPViewer
 {
-    public class Camera
+    public class GameCamera
     {
         public Point cameraPosition;
         public int height;
@@ -17,7 +17,7 @@ namespace MAPViewer
         public int XOffset = 0;
         public int YOffset = 0;
 
-        public Camera(int width, int height)
+        public GameCamera(int width, int height)
         {
             this.width = width;
             this.height = height;

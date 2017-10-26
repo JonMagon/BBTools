@@ -9,7 +9,7 @@ namespace BBData
     public class BOXFile
     {
         /// <summary>
-        /// Open BOX archive.
+        ///     Open BOX archive.
         /// </summary>
         /// <param name="filename">Path to BOX file.</param>
         public BOXFile(string filename)

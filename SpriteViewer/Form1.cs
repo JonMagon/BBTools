@@ -75,6 +75,7 @@ namespace SpriteViewer
                 status.Text = $"Size: {mfb.Width} x {mfb.Height} | Offset: ({mfb.Offset.X}, {mfb.Offset.Y})";
                 if (mfb.IsTransparent) status.Text += " | Transparent";
                 if (mfb.IsCompressed) status.Text += " | Compressed";
+                if (mfb.IsUnknown) status.Text += " | IsUnknown";
 
                 var imglist = new ImageList();
                 spritesBox.LargeImageList = imglist;

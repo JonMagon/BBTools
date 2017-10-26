@@ -65,17 +65,17 @@ namespace MAPViewer
 
             var bufferSize = data.Height * data.Stride;
 
-            //create data buffer 
             var bytes = new byte[bufferSize];
 
-            // copy bitmap data into buffer
-            Marshal.Copy(data.Scan0, bytes, 0, bytes.Length);
-
-            // copy our buffer to the texture
-            tex.SetData(bytes);
-
-            // unlock the bitmap data
-            bitmap.UnlockBits(data);
+            try
+            {
+                Marshal.Copy(data.Scan0, bytes, 0, bytes.Length);
+            }
+            finally
+            {
+                tex.SetData(bytes);
+                bitmap.UnlockBits(data);
+            }
 
             return tex;
         }

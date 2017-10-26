@@ -5,51 +5,51 @@ namespace MAPViewer
 {
     public class GameMouse
     {
-        public Camera camera;
-        public int drawMouse;
-        public MouseState state;
-        private Point windowSize;
+        public GameCamera Camera;
+        public int DrawMouse;
+        public MouseState State;
+        private Point WindowSize;
 
         public GameMouse(Point size)
         {
-            windowSize = size;
+            WindowSize = size;
         }
 
         private bool CursorOnLeft()
         {
-            return state.Position.X <= 100 && camera.moveableXLeft;
+            return State.Position.X <= 100 && Camera.moveableXLeft;
         }
 
         private bool CursorOnRight()
         {
-            return state.Position.X >= windowSize.X - 100 && camera.moveableXRight;
+            return State.Position.X >= WindowSize.X - 100 && Camera.moveableXRight;
         }
 
         private bool CursorOnTop()
         {
-            return state.Position.Y <= 100 && camera.moveableYTop;
+            return State.Position.Y <= 100 && Camera.moveableYTop;
         }
 
         private bool CursorOnDown()
         {
-            return state.Position.Y >= windowSize.Y - 100 && camera.moveableYDown;
+            return State.Position.Y >= WindowSize.Y - 100 && Camera.moveableYDown;
         }
 
-        public void updateCursor()
+        public void UpdateCursor()
         {
-            if (state.Position.X > 0 && state.Position.X < windowSize.X && state.Position.Y > 0 &&
-                state.Position.Y < windowSize.Y)
+            if (State.Position.X > 0 && State.Position.X < WindowSize.X && State.Position.Y > 0 &&
+                State.Position.Y < WindowSize.Y)
             {
-                if (CursorOnLeft()) camera.XOffset -= 1 * camera.speed;
-                if (CursorOnRight()) camera.XOffset += 1 * camera.speed;
-                if (CursorOnTop()) camera.YOffset -= 1 * camera.speed;
-                if (CursorOnDown()) camera.YOffset += 1 * camera.speed;
+                if (CursorOnLeft()) Camera.XOffset -= 1 * Camera.speed;
+                if (CursorOnRight()) Camera.XOffset += 1 * Camera.speed;
+                if (CursorOnTop()) Camera.YOffset -= 1 * Camera.speed;
+                if (CursorOnDown()) Camera.YOffset += 1 * Camera.speed;
             }
         }
 
-        public void handleMouse()
+        public void HandleMouse()
         {
-            if (state.RightButton == ButtonState.Pressed)
+            if (State.RightButton == ButtonState.Pressed)
             {
             }
         }

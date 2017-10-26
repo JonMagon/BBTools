@@ -15,12 +15,12 @@ namespace MAPViewer
         public static int WINDOW_WIDTH = 1200;
         public static int WINDOW_HEIGHT = 600;
         private readonly GraphicsDeviceManager graphics;
-        private Camera camera;
+        private GameCamera camera;
 
         private float elapsedTime;
         private float elapsedTimeAnimate;
 
-        private Map gameMap;
+        private GameMap gameMap;
         private GameMouse gameMouse;
         private GameKeyboard keyboard;
         private SpriteBatch spriteBatch;
@@ -46,8 +46,8 @@ namespace MAPViewer
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            gameMap = new Map(spriteBatch, graphics);
-            camera = new Camera(WINDOW_WIDTH, WINDOW_HEIGHT);
+            gameMap = new GameMap(spriteBatch, graphics);
+            camera = new GameCamera(WINDOW_WIDTH, WINDOW_HEIGHT);
             gameMouse = new GameMouse(new Point(WINDOW_WIDTH, WINDOW_HEIGHT));
 
             keyboard = new GameKeyboard(camera, gameMap);
@@ -106,21 +106,23 @@ namespace MAPViewer
 
         protected override void Update(GameTime gameTime)
         {
+            if (!IsActive) return;
+
             elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
             elapsedTimeAnimate += gameTime.ElapsedGameTime.Milliseconds;
 
-            gameMouse.state = Mouse.GetState();
-            gameMouse.camera = camera;
+            gameMouse.State = Mouse.GetState();
+            gameMouse.Camera = camera;
 
             // temp
             if (elapsedTimeAnimate > 100f)
             {
                 elapsedTimeAnimate -= 100f;
-                Map.mark_object_id = (Map.mark_object_id + 1) % 7;
+                GameMap.mark_object_id = (GameMap.mark_object_id + 1) % 7;
             }
 
-            gameMouse.updateCursor();
-            gameMouse.handleMouse();
+            gameMouse.UpdateCursor();
+            gameMouse.HandleMouse();
 
             gameMap.HandleMouse(gameMouse, camera);
 
@@ -144,8 +146,6 @@ namespace MAPViewer
                     "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Exit();
             }
-
-            //drawConsole(spriteBatch, spriteFont);
 
             spriteBatch.End();
 

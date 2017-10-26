@@ -43,11 +43,11 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Camera.cs" />
+    <Compile Include="GameCamera.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameMouse.cs" />
     <Compile Include="GameTextures.cs" />
-    <Compile Include="Map.cs" />
+    <Compile Include="GameMap.cs" />
     <Compile Include="GameKeyboard.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

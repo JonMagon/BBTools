@@ -5,12 +5,12 @@ namespace MAPViewer
 {
     public class GameKeyboard
     {
-        public Camera camera;
+        public GameCamera camera;
         public GameConsole console;
-        private Map map;
+        private GameMap map;
         public KeyboardState previousState;
 
-        public GameKeyboard(Camera camera, Map map)
+        public GameKeyboard(GameCamera camera, GameMap map)
         {
             this.camera = camera;
             this.map = map;

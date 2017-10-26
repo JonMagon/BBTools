@@ -12,7 +12,7 @@ namespace BBData
     public class MFBFile
     {
         /// <summary>
-        /// Creates an Image from MFB file using palette.
+        ///     Creates an Image from MFB file using palette.
         /// </summary>
         /// <param name="filename">Path to .mfb file</param>
         /// <param name="palette">The color palette used for this Image.</param>
@@ -22,7 +22,7 @@ namespace BBData
         }
 
         /// <summary>
-        /// Creates an Image from byte array (MFB format) using palette.
+        ///     Creates an Image from byte array (MFB format) using palette.
         /// </summary>
         /// <param name="data">Byte array.</param>
         /// <param name="palette">The color palette used for this Image.</param>
@@ -62,12 +62,13 @@ namespace BBData
                     var spritesize = Width * Height;
 
                     IsTransparent = (flags & (byte) EntryFlags.Transparent) != 0;
+                    IsUnknown = (flags & (byte) EntryFlags.Unknown) != 0;
 
                     if (IsCompressed = (flags & (byte) EntryFlags.Compressed) != 0)
                         for (var i = 0; i < numsprites; i++)
                         {
                             var size = binr.ReadInt32();
-                            Entries.Add(CreateImage(unRLE(binr.ReadBytes(size), spritesize),
+                            Entries.Add(CreateImage(UnpackRLE(binr.ReadBytes(size), spritesize),
                                 palette));
                         }
                     else
@@ -84,8 +85,9 @@ namespace BBData
         public Point Offset { get; }
         public bool IsCompressed { get; }
         public bool IsTransparent { get; }
+        public bool IsUnknown { get; }
 
-        private static byte[] unRLE(byte[] input, int spritesize)
+        private static byte[] UnpackRLE(byte[] input, int spritesize)
         {
             var output = new byte[spritesize];
 
@@ -109,7 +111,7 @@ namespace BBData
 
         private Image CreateImage(byte[] buffer, Palettes.TypePalette palette)
         {
-            Image _img;
+            Image img;
             var bmp = new Bitmap(Width, Height, PixelFormat.Format8bppIndexed);
             var bytespalette = Palettes.GetPalette(palette);
             var typepalette = bmp.Palette;
@@ -134,7 +136,7 @@ namespace BBData
             finally
             {
                 bmp.UnlockBits(bmpData);
-                _img = bmp;
+                img = bmp;
             }
 
 
@@ -144,7 +146,7 @@ namespace BBData
                 bmp.MakeTransparent(Color.FromArgb(255, pixel.R, pixel.G, pixel.B));
             }
 
-            return _img;
+            return img;
         }
 
         private enum EntryFlags
