@@ -17,9 +17,7 @@ namespace BBData
         /// <param name="filename">Path to .mfb file</param>
         /// <param name="palette">The color palette used for this Image.</param>
         public MFBFile(string filename, Palettes.TypePalette palette = Palettes.TypePalette.PALETTE)
-            : this(File.ReadAllBytes(filename), palette)
-        {
-        }
+            : this(File.ReadAllBytes(filename), palette) {}
 
         /// <summary>
         ///     Creates an Image from byte array (MFB format) using palette.
@@ -36,6 +34,8 @@ namespace BBData
                         throw new Exception("File is corrupted. Bad signature.");
 
                     var version = int.Parse(new string(binr.ReadChars(3))); // 101
+
+                    if (version != 101) throw new Exception("This version of MFB is not supported.");
 
                     Width = binr.ReadInt16();
                     Height = binr.ReadInt16();

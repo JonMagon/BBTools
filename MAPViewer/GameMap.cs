@@ -350,14 +350,18 @@ namespace MAPViewer
                 DrawTexture(tile, Textures[textureName, frame]);
             }
 
-            var mapObject1 = Map.Objects.FirstOrDefault(item => item.Position.X == selectedTile.X &&
-                                                                item.Position.Y == selectedTile.Y);
+            var tileObjects = Map.Objects.FindAll(item => item.Position.X == selectedTile.X &&
+                                                          item.Position.Y == selectedTile.Y);
 
-            var mousecoords = $"{selectedTile.X}, {selectedTile.Y} {mapObject1?.Class}";
-            spriteBatch.DrawString(spriteFont, mousecoords, new Vector2(
-                mousePosition.X + 16, mousePosition.Y - 14), Color.Black);
-            spriteBatch.DrawString(spriteFont, mousecoords, new Vector2(
-                mousePosition.X + 15, mousePosition.Y - 15), Color.White);
+            DrawText(new Point(mousePosition.X + 15, mousePosition.Y - 15), $"{selectedTile.X}, {selectedTile.Y}");
+
+            Point coords = new Point(10, 10);
+            tileObjects?.ForEach(mapObject =>
+            {
+                coords.Y += 10;
+                DrawText(coords, $"{mapObject.Class}");
+            });
+
         }
 
         private void DrawTexture(Point isoCoords, GameTexture2D texture)
@@ -365,6 +369,14 @@ namespace MAPViewer
             spriteBatch.Draw(texture.getTexture2D(), new Vector2(
                 isoCoords.X - texture.Offset.X + tileWidth / 2,
                 isoCoords.Y - texture.Offset.Y), Color.White);
+        }
+
+        private void DrawText(Point coords, string text)
+        {
+            spriteBatch.DrawString(spriteFont, text, new Vector2(
+                coords.X + 1, coords.Y + 1), Color.Black);
+            spriteBatch.DrawString(spriteFont, text, new Vector2(
+                coords.X, coords.Y), Color.White);
         }
 
         public void Load(ContentManager content, GraphicsDevice graphicsDevice,
