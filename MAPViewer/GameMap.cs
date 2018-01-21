@@ -389,9 +389,9 @@ namespace MAPViewer
             this.spriteFontBig = spriteFontBig;
             this.content = content;
 
-            Map = new MAPFile(@"D:\beasts\savegam0.sav");
+            Map = new MAPFile(Environment.CurrentDirectory + @"\savegam0.sav");
 
-            Textures = new GameTextures(graphicsDevice, @"D:\beasts\VIDEO.BOX");
+            Textures = new GameTextures(graphicsDevice, Environment.CurrentDirectory + @"\VIDEO.BOX");
         }
 
         public void HandleMouse(GameMouse mouse, GameCamera camera)

@@ -57,42 +57,50 @@ namespace MAPViewer
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            Services.AddService(typeof(SpriteBatch), spriteBatch);
-
-            var console = new GameConsole(this, spriteBatch, new GameConsoleOptions
+            try
             {
-                ToggleKey = 192,
-                Height = 250,
-                Font = Content.Load<SpriteFont>("fontBig"),
-                FontColor = Color.LawnGreen,
-                Prompt = ">",
-                PromptColor = Color.White,
-                CursorColor = Color.White,
-                BackgroundColor = new Color(Color.Black, 150),
-                PastCommandOutputColor = Color.Aqua,
-                BufferColor = Color.White
-            });
+                spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            console.AddCommand("goto", a =>
+                Services.AddService(typeof(SpriteBatch), spriteBatch);
+
+                var console = new GameConsole(this, spriteBatch, new GameConsoleOptions
+                {
+                    ToggleKey = 192,
+                    Height = 250,
+                    Font = Content.Load<SpriteFont>("fontBig"),
+                    FontColor = Color.LawnGreen,
+                    Prompt = ">",
+                    PromptColor = Color.White,
+                    CursorColor = Color.White,
+                    BackgroundColor = new Color(Color.Black, 150),
+                    PastCommandOutputColor = Color.Aqua,
+                    BufferColor = Color.White
+                });
+
+                console.AddCommand("goto", a =>
+                {
+                    int x, y;
+                    if (a.Length != 2 || !(int.TryParse(a[0], out x) && int.TryParse(a[1], out y)))
+                        return "ERROR: Illegal arguments";
+                    if (x < 0 || x > 192 || y < 0 || y > 192)
+                        return "ERROR: Arguments x and y must be both positive and less than 192";
+                    camera.XOffset = gameMap.CalcIsoX(x, y) - WINDOW_WIDTH / 2;
+                    camera.YOffset = gameMap.CalcIsoY(x, y) - WINDOW_HEIGHT / 2;
+                    return $"SUCCESS: New position is {x} {y}";
+                }, "Set new position. Arguments: x y");
+
+                keyboard.console = console;
+
+                spriteFont = Content.Load<SpriteFont>("font");
+                spriteFontBig = Content.Load<SpriteFont>("fontBig");
+
+                gameMap.Load(Content, GraphicsDevice, spriteBatch, spriteFont, spriteFontBig);
+            }
+            catch (Exception ex)
             {
-                int x, y;
-                if (a.Length != 2 || !(int.TryParse(a[0], out x) && int.TryParse(a[1], out y)))
-                    return "ERROR: Illegal arguments";
-                if (x < 0 || x > 192 || y < 0 || y > 192)
-                    return "ERROR: Arguments x and y must be both positive and less than 192";
-                camera.XOffset = gameMap.CalcIsoX(x, y) - WINDOW_WIDTH / 2;
-                camera.YOffset = gameMap.CalcIsoY(x, y) - WINDOW_HEIGHT / 2;
-                return $"SUCCESS: New position is {x} {y}";
-            }, "Set new position. Arguments: x y");
-
-            keyboard.console = console;
-
-            spriteFont = Content.Load<SpriteFont>("font");
-            spriteFontBig = Content.Load<SpriteFont>("fontBig");
-
-            gameMap.Load(Content, GraphicsDevice, spriteBatch, spriteFont, spriteFontBig);
+                MessageBox.Show(ex.Message,
+                    "Exception: LoadContent", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>
