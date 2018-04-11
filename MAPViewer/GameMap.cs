@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using BBData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -180,6 +181,23 @@ namespace MAPViewer
                 tile.X -= camera.XOffset;
                 tile.Y -= camera.YOffset;
 
+                if (mapObject.IsGoing)
+                {
+                    var tile1 = CalcIsoXY(mapObject.GoingTo.X, mapObject.GoingTo.Y);
+                    tile1.X -= camera.XOffset;
+                    tile1.Y -= camera.YOffset;
+
+                    Texture2D SimpleTexture = new Texture2D(graphicsDevice,  1, 1, false, SurfaceFormat.Color);
+
+                    Int32[] pixel = {0xFFFFFF};
+                    SimpleTexture.SetData<Int32>(pixel, 0, SimpleTexture.Width * SimpleTexture.Height);
+
+                    var distance = Vector2.Distance(tile, tile1);
+                    var angle = (float) Math.Atan2(tile1.Y - tile.Y, tile1.X - tile.X);
+
+                    spriteBatch.Draw(SimpleTexture, new Rectangle((int)tile.X + tileWidth / 2, (int)tile.Y, (int)distance, 2),
+                        null, Color.Blue, angle, new Vector2(0f, 0f), SpriteEffects.None, 1f);
+                }
 
                 var textureName = "doogle";
                 var frame = 0;
@@ -353,9 +371,9 @@ namespace MAPViewer
             var tileObjects = Map.Objects.FindAll(item => item.Position.X == selectedTile.X &&
                                                           item.Position.Y == selectedTile.Y);
 
-            DrawText(new Point(mousePosition.X + 15, mousePosition.Y - 15), $"{selectedTile.X}, {selectedTile.Y}");
+            DrawText(new Vector2(mousePosition.X + 15, mousePosition.Y - 15), $"{selectedTile.X}, {selectedTile.Y}");
 
-            Point coords = new Point(10, 10);
+            Vector2 coords = new Vector2(10, 10);
             tileObjects?.ForEach(mapObject =>
             {
                 coords.Y += 10;
@@ -364,14 +382,14 @@ namespace MAPViewer
 
         }
 
-        private void DrawTexture(Point isoCoords, GameTexture2D texture)
+        private void DrawTexture(Vector2 isoCoords, GameTexture2D texture)
         {
             spriteBatch.Draw(texture.getTexture2D(), new Vector2(
                 isoCoords.X - texture.Offset.X + tileWidth / 2,
                 isoCoords.Y - texture.Offset.Y), Color.White);
         }
 
-        private void DrawText(Point coords, string text)
+        private void DrawText(Vector2 coords, string text)
         {
             spriteBatch.DrawString(spriteFont, text, new Vector2(
                 coords.X + 1, coords.Y + 1), Color.Black);
@@ -409,9 +427,9 @@ namespace MAPViewer
             return (x + y) * (tileHeight / 2);
         }
 
-        private Point CalcIsoXY(int x, int y)
+        private Vector2 CalcIsoXY(int x, int y)
         {
-            return new Point(CalcIsoX(x, y), (x + y) * (tileHeight / 2));
+            return new Vector2(CalcIsoX(x, y), (x + y) * (tileHeight / 2));
         }
     }
 }

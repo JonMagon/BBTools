@@ -8,9 +8,9 @@ namespace MAPViewer
         public GameCamera Camera;
         public int DrawMouse;
         public MouseState State;
-        private Point WindowSize;
+        private Vector2 WindowSize;
 
-        public GameMouse(Point size)
+        public GameMouse(Vector2 size)
         {
             WindowSize = size;
         }

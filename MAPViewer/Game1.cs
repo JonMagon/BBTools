@@ -30,9 +30,11 @@ namespace MAPViewer
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
-            graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
+            graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = WINDOW_WIDTH,
+                PreferredBackBufferHeight = WINDOW_HEIGHT
+            };
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }
@@ -48,10 +50,10 @@ namespace MAPViewer
             // TODO: Add your initialization logic here
             gameMap = new GameMap(spriteBatch, graphics);
             camera = new GameCamera(WINDOW_WIDTH, WINDOW_HEIGHT);
-            gameMouse = new GameMouse(new Point(WINDOW_WIDTH, WINDOW_HEIGHT));
+            gameMouse = new GameMouse(new Vector2(WINDOW_WIDTH, WINDOW_HEIGHT));
 
             keyboard = new GameKeyboard(camera, gameMap);
-
+            
             base.Initialize();
         }
 
@@ -79,8 +81,7 @@ namespace MAPViewer
 
                 console.AddCommand("goto", a =>
                 {
-                    int x, y;
-                    if (a.Length != 2 || !(int.TryParse(a[0], out x) && int.TryParse(a[1], out y)))
+                    if (a.Length != 2 || !(int.TryParse(a[0], out int x) && int.TryParse(a[1], out int y)))
                         return "ERROR: Illegal arguments";
                     if (x < 0 || x > 192 || y < 0 || y > 192)
                         return "ERROR: Arguments x and y must be both positive and less than 192";

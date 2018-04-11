@@ -4,7 +4,7 @@ namespace MAPViewer
 {
     public class GameCamera
     {
-        public Point cameraPosition;
+        public Vector2 cameraPosition;
         public int height;
 
         public bool moveableXLeft = true;
@@ -21,7 +21,7 @@ namespace MAPViewer
         {
             this.width = width;
             this.height = height;
-            cameraPosition = new Point(0, 0);
+            cameraPosition = new Vector2(0, 0);
         }
     }
 }

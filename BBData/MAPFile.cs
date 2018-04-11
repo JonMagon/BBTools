@@ -81,12 +81,16 @@ namespace BBData
                             Sex = data[0xF4],
                             IsFleeing = data[0x106] != 0,
                             GenPeriod = data[0xE5],
-                            IsGoing = data[0x11D] != 0
+                            IsGoing = data[0x11D] != 0,
+                            GoingTo = new Point(data[0xDD], data[0xDE]),
                         };
                         Objects.Add(mapObject);
 
                         if (data[0x8E] == 52)
                             File.WriteAllBytes("villager52_1.bin", data);
+
+                        if (data[0xD8] == 103 && data[0xD9] == 70)
+                            File.WriteAllBytes("103_70.bin", data);
                     }
             }
         }
@@ -155,6 +159,7 @@ namespace BBData
         public bool IsFleeing { get; set; }
         public byte GenPeriod { get; set; }
         public bool IsGoing { get; set; }
+        public Point GoingTo { get; set; }
     }
 
     public class MapTile
