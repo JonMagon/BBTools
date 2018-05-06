@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
 using BBData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -10,16 +9,17 @@ namespace MAPViewer
 {
     public class GameMap
     {
+        // don't change this
+        private const int tilesX = 192;
+        private const int tilesY = 192;
+        private const int tileHeight = 40;
+        private const int tileWidth = 78;
+
         public static int mark_object_id = 0;
         private readonly byte CurrentPlayer = 0;
 
         private readonly bool IsNight = false;
-        private readonly int tileHeight = 40;
 
-        private readonly int tilesX = 192;
-        private readonly int tilesY = 192;
-
-        private readonly int tileWidth = 78;
         private ContentManager content;
         private GraphicsDeviceManager graphics;
         private GraphicsDevice graphicsDevice;
@@ -62,6 +62,8 @@ namespace MAPViewer
 
             // drawing tiles
 
+            // Говно написано, что это тут делает? Вынеси в логику это и выше, наверное
+
             var cameraTile = GetTileCoordinates(new Point(camera.XOffset + camera.width / 2,
                 camera.YOffset + camera.height / 2));
 
@@ -83,6 +85,11 @@ namespace MAPViewer
                 > camera.height + camera.YOffset - camera.height &&
                 CalcIsoY(item.Position.X, item.Position.Y) - 2 * tileHeight
                 < camera.height + camera.YOffset);
+
+            /*
+             * Drawing tiles and roads
+             * WARNING: Don't change
+             */
 
             foreach (var tile in visibleTiles)
             {
