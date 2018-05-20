@@ -1,0 +1,260 @@
+A prefix _ in front of the name means that this name is given independently.
+
+id      name
+============
+0       tree
+1       church
+2       peasant hut
+3       none_3
+4       none_4
+5       tree
+6       tree
+7       fire
+8       none_8
+9       none_9
+10      none_10
+11      none_11
+12      none_12
+13      none_13
+14      none_14
+15      none_15
+16      none_16
+17      none_17
+18      none_18
+19      none_19
+20      none_20
+21      none_21
+22      none_22
+23      none_23
+24      none_24
+25      crate
+26      none_26
+27      none_27
+28      none_28
+29      stone wall
+30      none_30
+31      none_31
+32      none_32
+33      none_33
+34      none_34
+35      none_35
+36      spike trap
+37      mine
+38      none_38
+39      street lamp
+40      none_40
+41      none_41
+42      none_42
+43      none_43
+44      none_44
+45      none_45
+46      none_46
+47      well
+48      none_48
+49      none_49
+50      none_50
+51      farm
+52      none_52
+53      bakery
+54      brewery
+55      none_55
+56      none_56
+57      none_57
+58      corpse
+59      none_59
+60      none_60
+61      oil
+62      none_62
+63      none_63
+64      none_64
+65      none_65
+66      town hall
+67      none_67
+68      none_68
+69      builders guild
+70      none_70
+71      none_71
+72      none_72
+73      none_73
+74      none_74
+75      tower
+76      none_76
+77      none_77
+78      wheat
+79      apple tree
+80      none_80
+81      none_81
+82      none_82
+83      _mushroom
+84      none_84
+85      none_85
+86      wizards guild
+87      none_87
+88      none_88
+89      none_89
+90      none_90
+91      none_91
+92      none_92
+93      flame trap
+94      apple tree
+95      chick
+96      baby cow
+97      none_97
+98      flagpost
+99      none_99
+100     none_100
+101     none_101
+102     none_102
+103     villager
+104     creature
+105     none_105
+106     none_106
+107     none_107
+108     none_108
+109     none_109
+110     cow
+111     chicken
+112     none_112
+113     peasant hut
+114     rockpile
+115     woodpile
+116     hammer point
+117     bakery
+118     well
+119     farm
+120     none_120
+121     none_121
+122     stone wall
+123     builders guild
+124     brewery
+125     none_125
+126     town hall
+127     church
+128     none_128
+129     fence
+130     fence
+131     none_131
+132     none_132
+133     none_133
+134     young tree
+135     none_135
+136     none_136
+137     none_137
+138     none_138
+139     none_139
+140     none_140
+141     none_141
+142     none_142
+143     campfire
+144     spring
+145     archers guild
+146     archers guild
+147     none_147
+148     none_148
+149     none_149
+150     minstrels guild
+151     minstrels guild
+152     knights guild
+153     knights guild
+154     prison
+155     prison
+156     none_156
+157     stables
+158     stables
+159     silver goblet
+160     potion
+161     gold
+162     temple
+163     rock
+164     none_164
+165     none_165
+166     none_166
+167     none_167
+168     none_168
+169     gate
+170     gate
+171     generator
+172     gold goblet
+173     none_173
+174     holy sword
+175     wizards guild
+176     magic scroll
+177     helmet of strength
+178     ring of fire protection
+179     coffin
+180     grass
+181     light grass
+182     water
+183     mud
+184     rock
+185     sand
+186     forest
+187     none_187
+188     none_188
+189     green based forest
+190     grave
+191     zombie tomb
+192     shield of the gods
+193     crucifix
+194     trap detected
+195     none_195
+196     none_196
+197     none_197
+198     magic key
+199     magic gate
+200     shovel
+201     none_201
+202     smoke
+203     explosion
+204     smoke
+205     none_205
+206     path
+207     footmans guild
+208     footmans guild
+209     none_209
+210     lever
+211     cloak of invisibility
+212     ring of absolute power
+213     target
+214     fountain of youth
+215     shrubbery
+216     chair
+217     dark altar
+218     weird tree
+219     graveyard fence
+220     graveyard fence
+221     lookout post
+222     none_222
+223     none_223
+224     none_224
+225     lookout post
+226     none_226
+227     none_227
+228     none_228
+229     none_229
+230     none_230
+231     none_231
+232     none_232
+233     none_233
+234     none_234
+235     none_235
+236     none_236
+237     none_237
+238     none_238
+239     none_239
+240     none_240
+241     none_241
+242     none_242
+243     none_243
+244     none_244
+245     none_245
+246     none_246
+247     none_247
+248     none_248
+249     none_249
+250     none_250
+251     none_251
+252     none_252
+253     none_253
+254     none_254
+255     none_255
