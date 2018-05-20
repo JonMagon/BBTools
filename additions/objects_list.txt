@@ -1,260 +1,260 @@
 A prefix _ in front of the name means that this name is given independently.
 
-id      name
-============
-0       tree
-1       church
-2       peasant hut
-3       none_3
-4       none_4
-5       tree
-6       tree
-7       fire
-8       none_8
-9       none_9
-10      none_10
-11      none_11
-12      none_12
-13      none_13
-14      none_14
-15      none_15
-16      none_16
-17      none_17
-18      none_18
-19      none_19
-20      none_20
-21      none_21
-22      none_22
-23      none_23
-24      none_24
-25      crate
-26      none_26
-27      none_27
-28      none_28
-29      stone wall
-30      none_30
-31      none_31
-32      none_32
-33      none_33
-34      none_34
-35      none_35
-36      spike trap
-37      mine
-38      none_38
-39      street lamp
-40      none_40
-41      none_41
-42      none_42
-43      none_43
-44      none_44
-45      none_45
-46      none_46
-47      well
-48      none_48
-49      none_49
-50      none_50
-51      farm
-52      none_52
-53      bakery
-54      brewery
-55      none_55
-56      none_56
-57      none_57
-58      corpse
-59      none_59
-60      none_60
-61      oil
-62      none_62
-63      none_63
-64      none_64
-65      none_65
-66      town hall
-67      none_67
-68      none_68
-69      builders guild
-70      none_70
-71      none_71
-72      none_72
-73      none_73
-74      none_74
-75      tower
-76      none_76
-77      none_77
-78      wheat
-79      apple tree
-80      none_80
-81      none_81
-82      none_82
-83      _mushroom
-84      none_84
-85      none_85
-86      wizards guild
-87      none_87
-88      none_88
-89      none_89
-90      none_90
-91      none_91
-92      none_92
-93      flame trap
-94      apple tree
-95      chick
-96      baby cow
-97      none_97
-98      flagpost
-99      none_99
-100     none_100
-101     none_101
-102     none_102
-103     villager
-104     creature
-105     none_105
-106     none_106
-107     none_107
-108     none_108
-109     none_109
-110     cow
-111     chicken
-112     none_112
-113     peasant hut
-114     rockpile
-115     woodpile
-116     hammer point
-117     bakery
-118     well
-119     farm
-120     none_120
-121     none_121
-122     stone wall
-123     builders guild
-124     brewery
-125     none_125
-126     town hall
-127     church
-128     none_128
-129     fence
-130     fence
-131     none_131
-132     none_132
-133     none_133
-134     young tree
-135     none_135
-136     none_136
-137     none_137
-138     none_138
-139     none_139
-140     none_140
-141     none_141
-142     none_142
-143     campfire
-144     spring
-145     archers guild
-146     archers guild
-147     none_147
-148     none_148
-149     none_149
-150     minstrels guild
-151     minstrels guild
-152     knights guild
-153     knights guild
-154     prison
-155     prison
-156     none_156
-157     stables
-158     stables
-159     silver goblet
-160     potion
-161     gold
-162     temple
-163     rock
-164     none_164
-165     none_165
-166     none_166
-167     none_167
-168     none_168
-169     gate
-170     gate
-171     generator
-172     gold goblet
-173     none_173
-174     holy sword
-175     wizards guild
-176     magic scroll
-177     helmet of strength
-178     ring of fire protection
-179     coffin
-180     grass
-181     light grass
-182     water
-183     mud
-184     rock
-185     sand
-186     forest
-187     none_187
-188     none_188
-189     green based forest
-190     grave
-191     zombie tomb
-192     shield of the gods
-193     crucifix
-194     trap detected
-195     none_195
-196     none_196
-197     none_197
-198     magic key
-199     magic gate
-200     shovel
-201     none_201
-202     smoke
-203     explosion
-204     smoke
-205     none_205
-206     path
-207     footmans guild
-208     footmans guild
-209     none_209
-210     lever
-211     cloak of invisibility
-212     ring of absolute power
-213     target
-214     fountain of youth
-215     shrubbery
-216     chair
-217     dark altar
-218     weird tree
-219     graveyard fence
-220     graveyard fence
-221     lookout post
-222     none_222
-223     none_223
-224     none_224
-225     lookout post
-226     none_226
-227     none_227
-228     none_228
-229     none_229
-230     none_230
-231     none_231
-232     none_232
-233     none_233
-234     none_234
-235     none_235
-236     none_236
-237     none_237
-238     none_238
-239     none_239
-240     none_240
-241     none_241
-242     none_242
-243     none_243
-244     none_244
-245     none_245
-246     none_246
-247     none_247
-248     none_248
-249     none_249
-250     none_250
-251     none_251
-252     none_252
-253     none_253
-254     none_254
-255     none_255
+id      name                          health
+============================================
+0       tree                          130
+1       church                        1200
+2       peasant hut                   400
+3       None_3                        30
+4       None_4                        30
+5       tree                          110
+6       tree                          120
+7       fire                          800
+8       None_8                        30
+9       None_9                        30
+10      None_10                       30
+11      None_11                       30
+12      None_12                       30
+13      None_13                       30
+14      None_14                       30
+15      None_15                       30
+16      None_16                       30
+17      None_17                       30
+18      None_18                       30
+19      None_19                       30
+20      None_20                       30
+21      None_21                       30
+22      None_22                       30
+23      None_23                       30
+24      None_24                       30
+25      crate                         400
+26      None_26                       30
+27      None_27                       30
+28      None_28                       30
+29      stone wall                    200
+30      None_30                       30
+31      None_31                       30
+32      None_32                       30
+33      None_33                       30
+34      None_34                       30
+35      None_35                       30
+36      spike trap                    400
+37      mine                          4
+38      None_38                       30
+39      street lamp                   30
+40      None_40                       1000
+41      None_41                       30
+42      None_42                       1000
+43      None_43                       1000
+44      None_44                       4000
+45      None_45                       30
+46      None_46                       30
+47      well                          500
+48      None_48                       30
+49      None_49                       30
+50      None_50                       10
+51      farm                          600
+52      None_52                       30
+53      bakery                        800
+54      brewery                       700
+55      None_55                       2000
+56      None_56                       2000
+57      None_57                       1000
+58      corpse                        1000
+59      None_59                       30
+60      None_60                       30
+61      oil                           400
+62      None_62                       100
+63      None_63                       200
+64      None_64                       200
+65      None_65                       30
+66      town hall                     800
+67      None_67                       80
+68      None_68                       1000
+69      builders guild                800
+70      None_70                       30
+71      None_71                       800
+72      None_72                       30
+73      None_73                       30
+74      None_74                       100
+75      tower                         400
+76      None_76                       150
+77      None_77                       80
+78      wheat                         30
+79      apple tree                    120
+80      None_80                       30
+81      None_81                       300
+82      None_82                       200
+83      _mushroom                     100
+84      None_84                       30
+85      None_85                       30
+86      wizards guild                 800
+87      None_87                       130
+88      None_88                       130
+89      None_89                       130
+90      None_90                       130
+91      None_91                       30
+92      None_92                       100
+93      flame trap                    400
+94      apple tree                    30
+95      chick                         30
+96      baby cow                      30
+97      None_97                       30
+98      flagpost                      30
+99      None_99                       130
+100     None_100                      30
+101     None_101                      30
+102     None_102                      30
+103     villager                      200
+104     creature                      200
+105     None_105                      30
+106     None_106                      30
+107     None_107                      30
+108     None_108                      30
+109     None_109                      30
+110     cow                           80
+111     chicken                       30
+112     None_112                      30
+113     peasant hut                   400
+114     rockpile                      100
+115     woodpile                      100
+116     hammer point                  100
+117     bakery                        800
+118     well                          500
+119     farm                          600
+120     None_120                      30
+121     None_121                      30
+122     stone wall                    200
+123     builders guild                800
+124     brewery                       700
+125     None_125                      30
+126     town hall                     800
+127     church                        1200
+128     None_128                      200
+129     fence                         200
+130     fence                         200
+131     None_131                      120
+132     None_132                      30
+133     None_133                      30
+134     young tree                    30
+135     None_135                      30
+136     None_136                      400
+137     None_137                      400
+138     None_138                      150
+139     None_139                      30
+140     None_140                      30
+141     None_141                      30
+142     None_142                      200
+143     campfire                      800
+144     spring                        30
+145     archers guild                 800
+146     archers guild                 800
+147     None_147                      200
+148     None_148                      200
+149     None_149                      200
+150     minstrels guild               800
+151     minstrels guild               800
+152     knights guild                 800
+153     knights guild                 800
+154     prison                        800
+155     prison                        800
+156     None_156                      200
+157     stables                       400
+158     stables                       400
+159     silver goblet                 30
+160     potion                        30
+161     gold                          30
+162     temple                        400
+163     rock                          30
+164     None_164                      200
+165     None_165                      30
+166     None_166                      200
+167     None_167                      30
+168     None_168                      30
+169     gate                          200
+170     gate                          200
+171     generator                     30
+172     gold goblet                   30
+173     None_173                      30
+174     holy sword                    30
+175     wizards guild                 800
+176     magic scroll                  30
+177     helmet of strength            30
+178     ring of fire protection       30
+179     coffin                        200
+180     grass                         30
+181     light grass                   30
+182     water                         30
+183     mud                           30
+184     rock                          30
+185     sand                          30
+186     forest                        30
+187     None_187                      30
+188     None_188                      30
+189     green based forest            30
+190     grave                         100
+191     zombie tomb                   30
+192     shield of the gods            30
+193     crucifix                      30
+194     trap detected                 30
+195     None_195                      30
+196     None_196                      30
+197     None_197                      30
+198     magic key                     30
+199     magic gate                    30
+200     shovel                        30
+201     None_201                      200
+202     smoke                         30
+203     explosion                     1000
+204     smoke                         800
+205     None_205                      200
+206     path                          30
+207     footmans guild                800
+208     footmans guild                800
+209     None_209                      200
+210     lever                         30
+211     cloak of invisibility         30
+212     ring of absolute power        30
+213     target                        130
+214     fountain of youth             130
+215     shrubbery                     120
+216     chair                         120
+217     dark altar                    130
+218     weird tree                    120
+219     graveyard fence               200
+220     graveyard fence               200
+221     lookout post                  400
+222     None_222                      2000
+223     None_223                      300
+224     None_224                      30
+225     lookout post                  400
+226     None_226                      30
+227     None_227                      30
+228     None_228                      30
+229     None_229                      30
+230     None_230                      30
+231     None_231                      30
+232     None_232                      30
+233     None_233                      30
+234     None_234                      30
+235     None_235                      30
+236     None_236                      30
+237     None_237                      30
+238     None_238                      30
+239     None_239                      30
+240     None_240                      30
+241     None_241                      30
+242     None_242                      30
+243     None_243                      30
+244     None_244                      30
+245     None_245                      30
+246     None_246                      30
+247     None_247                      30
+248     None_248                      30
+249     None_249                      30
+250     None_250                      30
+251     None_251                      30
+252     None_252                      30
+253     None_253                      30
+254     None_254                      30
+255     None_255                      30
