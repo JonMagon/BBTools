@@ -370,7 +370,8 @@ namespace MAPViewer
                         textureName = "crate";
                         break;
                     default:
-                        throw new Exception($"Unhandled class id: {mapObject.Class}");
+                        DrawText(tile, $"{mapObject.Class}");
+                        break;
                 }
                 DrawTexture(tile, Textures[textureName, frame]);
             }
