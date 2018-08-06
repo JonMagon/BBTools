@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameConsole;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace MAPViewer
 {
@@ -65,9 +66,9 @@ namespace MAPViewer
 
                 Services.AddService(typeof(SpriteBatch), spriteBatch);
 
-                var console = new GameConsole(this, spriteBatch, new GameConsoleOptions
+                var console = new GameConsole(this, spriteBatch, new IConsoleCommand[0], new GameConsoleOptions
                 {
-                    ToggleKey = 192,
+                    ToggleKey = Keys.OemTilde,
                     Height = 250,
                     Font = Content.Load<SpriteFont>("fontBig"),
                     FontColor = Color.LawnGreen,
@@ -77,7 +78,7 @@ namespace MAPViewer
                     BackgroundColor = new Color(Color.Black, 150),
                     PastCommandOutputColor = Color.Aqua,
                     BufferColor = Color.White
-                });
+                }, Content);
 
                 console.AddCommand("goto", a =>
                 {

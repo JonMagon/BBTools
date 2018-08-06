@@ -352,6 +352,22 @@ namespace MAPViewer
                     case 98:
                         textureName = "owner";
                         break;
+                    case 113:
+                        textureName = "vpick";
+                        frame = mapObject.State;
+                        break;
+                    case 114:
+                        textureName = "pick";
+                        frame = mapObject.State;
+                        break;
+                    case 115:
+                        textureName = "saw"; // TODO: vsaw
+                        frame = mapObject.State;
+                        break;
+                    case 129:
+                        textureName = "fence"; // TODO: "snwfence" if it's winter
+                        frame = mapObject.Frame;
+                        break;
                     case 143:
                         textureName = "campfire";
                         //frame = map_object.Frame;
@@ -366,11 +382,16 @@ namespace MAPViewer
                     case 159:
                         textureName = "gob_silv";
                         break;
+                    case 169:
+                        textureName = "gate";
+                        frame = mapObject.State + 3 * mapObject.Frame;
+                        break;
                     case 171:
                         textureName = "crate";
                         break;
                     default:
-                        throw new Exception($"Unhandled class id: {mapObject.Class}");
+                        DrawText(tile, $"{mapObject.Class}");
+                        break;
                 }
                 DrawTexture(tile, Textures[textureName, frame]);
             }
