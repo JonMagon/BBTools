@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Linq;
 using MonoGameConsole;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 
@@ -28,6 +29,8 @@ namespace MAPViewer
 
         private SpriteFont spriteFont;
         private SpriteFont spriteFontBig;
+
+        private GameFrameCounter frameCounter = new GameFrameCounter();
 
         public Game1()
         {
@@ -63,12 +66,16 @@ namespace MAPViewer
             try
             {
                 spriteBatch = new SpriteBatch(GraphicsDevice);
+                spriteFont = Content.Load<SpriteFont>("font");
+                spriteFontBig = Content.Load<SpriteFont>("fontBig");
+
+                gameMap.Load(Content, GraphicsDevice, spriteBatch, spriteFont, spriteFontBig);
 
                 Services.AddService(typeof(SpriteBatch), spriteBatch);
 
-                var console = new GameConsole(this, spriteBatch, new IConsoleCommand[0], new GameConsoleOptions
+                var console = new GameConsole(this, spriteBatch, new GameConsoleOptions
                 {
-                    ToggleKey = Keys.OemTilde,
+                    ToggleKey = (int)Keys.OemTilde,
                     Height = 250,
                     Font = Content.Load<SpriteFont>("fontBig"),
                     FontColor = Color.LawnGreen,
@@ -78,7 +85,7 @@ namespace MAPViewer
                     BackgroundColor = new Color(Color.Black, 150),
                     PastCommandOutputColor = Color.Aqua,
                     BufferColor = Color.White
-                }, Content);
+                });
 
                 console.AddCommand("goto", a =>
                 {
@@ -91,12 +98,15 @@ namespace MAPViewer
                     return $"SUCCESS: New position is {x} {y}";
                 }, "Set new position. Arguments: x y");
 
+                console.AddCommand("ways", a =>
+                {
+                    string result = null;
+                    gameMap.Map.Objects.Where(item => item.IsGoing).ToList()
+                    .ForEach(item => result += (result != null ? "\n" : null) + $"From {item.Position} to {item.GoingTo}");
+                    return result;
+                });
+
                 keyboard.console = console;
-
-                spriteFont = Content.Load<SpriteFont>("font");
-                spriteFontBig = Content.Load<SpriteFont>("fontBig");
-
-                gameMap.Load(Content, GraphicsDevice, spriteBatch, spriteFont, spriteFontBig);
             }
             catch (Exception ex)
             {
@@ -128,12 +138,13 @@ namespace MAPViewer
             if (elapsedTimeAnimate > 100f)
             {
                 elapsedTimeAnimate -= 100f;
-                GameMap.mark_object_id = (GameMap.mark_object_id + 1) % 7;
+                GameMap.animate_step = (GameMap.animate_step + 1) % Int32.MaxValue;
             }
 
             gameMouse.UpdateCursor();
             gameMouse.HandleMouse();
 
+            gameMap.Update(camera);
             gameMap.HandleMouse(gameMouse, camera);
 
             keyboard.Update();
@@ -156,6 +167,14 @@ namespace MAPViewer
                     "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Exit();
             }
+
+            var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            frameCounter.Update(deltaTime);
+
+            var fps = string.Format("FPS: {0}", (int)frameCounter.AverageFramesPerSecond);
+
+            spriteBatch.DrawString(spriteFontBig, fps, new Vector2(WINDOW_WIDTH - 70, 10), Color.Yellow);
 
             spriteBatch.End();
 

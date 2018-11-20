@@ -4,6 +4,7 @@ using BBData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace MAPViewer
 {
@@ -15,7 +16,7 @@ namespace MAPViewer
         private const int tileHeight = 40;
         private const int tileWidth = 78;
 
-        public static int mark_object_id = 0;
+        public static int animate_step = 0;
         private readonly byte CurrentPlayer = 0;
 
         private readonly bool IsNight = false;
@@ -24,7 +25,7 @@ namespace MAPViewer
         private GraphicsDeviceManager graphics;
         private GraphicsDevice graphicsDevice;
 
-        private MAPFile Map;
+        public MAPFile Map;
         private Point mousePosition;
         private Point selectedTile;
         private SpriteBatch spriteBatch;
@@ -32,6 +33,11 @@ namespace MAPViewer
         private SpriteFont spriteFontBig;
 
         private GameTextures Textures;
+
+        public Point cameraTile;
+
+        public IEnumerable<MapTile> visibleTiles;
+        public IEnumerable<MapObject> visibleObjects;
 
         public GameMap(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
         {
@@ -50,21 +56,14 @@ namespace MAPViewer
             return (byte) (count * (((dir + 16) % 32 + dir + 16) / 32));
         }
 
-        public void DrawMap(GameCamera camera)
+        public void Update(GameCamera camera)
         {
-            if (spriteBatch == null)
-                throw new Exception("SpriteBatch is null.");
-
             var mousePos = mousePosition;
             mousePos.X += camera.XOffset;
             mousePos.Y += camera.YOffset;
             selectedTile = GetTileCoordinates(mousePos);
 
-            // drawing tiles
-
-            // Говно написано, что это тут делает? Вынеси в логику это и выше, наверное
-
-            var cameraTile = GetTileCoordinates(new Point(camera.XOffset + camera.width / 2,
+            cameraTile = GetTileCoordinates(new Point(camera.XOffset + camera.width / 2,
                 camera.YOffset + camera.height / 2));
 
             if (cameraTile.X < 0 || tilesY - cameraTile.Y < 0) camera.moveableXLeft = false;
@@ -75,8 +74,8 @@ namespace MAPViewer
             else camera.moveableXRight = true;
             if (tilesX - cameraTile.X < 0 || tilesY - cameraTile.Y < 0) camera.moveableYDown = false;
             else camera.moveableYDown = true;
-
-            var visibleTiles = Map.Tiles.Where(item =>
+            
+            visibleTiles = Map.Tiles.Where(item =>
                 CalcIsoX(item.Position.X, item.Position.Y) + tileWidth
                 > camera.width + camera.XOffset - camera.width &&
                 CalcIsoX(item.Position.X, item.Position.Y) - tileWidth
@@ -86,10 +85,23 @@ namespace MAPViewer
                 CalcIsoY(item.Position.X, item.Position.Y) - 2 * tileHeight
                 < camera.height + camera.YOffset);
 
-            /*
-             * Drawing tiles and roads
-             * WARNING: Don't change
-             */
+            visibleObjects = Map.Objects.Where(item =>
+               CalcIsoX(item.Position.X, item.Position.Y) + 5 * tileWidth
+               > camera.width + camera.XOffset - camera.width &&
+               CalcIsoX(item.Position.X, item.Position.Y) - 5 * tileWidth
+               < camera.width + camera.XOffset &&
+               CalcIsoY(item.Position.X, item.Position.Y) + 5 * tileHeight
+               > camera.height + camera.YOffset - camera.height &&
+               CalcIsoY(item.Position.X, item.Position.Y) - 5 * tileHeight
+               < camera.height + camera.YOffset)
+                   .OrderByDescending(tile => tile.Position.X)
+                   .OrderBy(tile => tile.Position.Y);
+        }
+
+        public void DrawMap(GameCamera camera)
+        {
+            if (spriteBatch == null)
+                throw new Exception("SpriteBatch is null.");
 
             foreach (var tile in visibleTiles)
             {
@@ -172,21 +184,15 @@ namespace MAPViewer
             //end mouse
 
             // drawing object
-            var visibleObjects = Map.Objects.Where(item =>
-                CalcIsoX(item.Position.X, item.Position.Y) + 5 * tileWidth
-                > camera.width + camera.XOffset - camera.width &&
-                CalcIsoX(item.Position.X, item.Position.Y) - 5 * tileWidth
-                < camera.width + camera.XOffset &&
-                CalcIsoY(item.Position.X, item.Position.Y) + 5 * tileHeight
-                > camera.height + camera.YOffset - camera.height &&
-                CalcIsoY(item.Position.X, item.Position.Y) - 5 * tileHeight
-                < camera.height + camera.YOffset).Reverse();
-
             foreach (var mapObject in visibleObjects)
             {
                 var tile = CalcIsoXY(mapObject.Position.X, mapObject.Position.Y);
                 tile.X -= camera.XOffset;
                 tile.Y -= camera.YOffset;
+
+                // fix chicken draw position
+                if (mapObject.Class == 111)
+                    tile.Y -= 17;
 
                 if (mapObject.IsGoing)
                 {
@@ -196,8 +202,7 @@ namespace MAPViewer
 
                     Texture2D SimpleTexture = new Texture2D(graphicsDevice,  1, 1, false, SurfaceFormat.Color);
 
-                    Int32[] pixel = {0xFFFFFF};
-                    SimpleTexture.SetData<Int32>(pixel, 0, SimpleTexture.Width * SimpleTexture.Height);
+                    SimpleTexture.SetData<Int32>(new int[] { 0xFFFFFF }, 0, SimpleTexture.Width * SimpleTexture.Height);
 
                     var distance = Vector2.Distance(tile, tile1);
                     var angle = (float) Math.Atan2(tile1.Y - tile.Y, tile1.X - tile.X);
@@ -371,7 +376,7 @@ namespace MAPViewer
                     case 143:
                         textureName = "campfire";
                         //frame = map_object.Frame;
-                        frame = mark_object_id;
+                        frame = animate_step % 7;
                         break;
                     case 144:
                         textureName = "crate";
@@ -381,6 +386,7 @@ namespace MAPViewer
                         break;
                     case 159:
                         textureName = "gob_silv";
+                        frame = animate_step % 4;
                         break;
                     case 169:
                         textureName = "gate";
