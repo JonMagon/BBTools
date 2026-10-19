@@ -1,6 +1,17 @@
 # BBTools
 Collection of tools for Beasts and Bumpkins
 
+# BBScriptEditor
+
+- Visual graph editor for mission and savegame scripts.
+- Editable commands and conditions with drag-and-drop transitions.
+- Searchable object and class lists.
+- Script validation and Undo/Redo.
+- Open campaign archives or individual files and save changes in the original format.
+- Native C++20 / Qt 6 desktop application; game files are not bundled.
+
+![BBScriptEditor](screenshots/bbscripteditor.png)
+
 # MAPViewer
 MAPViewer is a tool to visualize the mission and savegame files.
 ![MapViewer](https://i.imgur.com/eqvXmtd.png)
