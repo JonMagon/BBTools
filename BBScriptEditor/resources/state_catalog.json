@@ -1,0 +1,152 @@
+[
+  {
+    "class_id": 42,
+    "state": 0,
+    "label": "thunder cloud: forming",
+    "description": "After16 animation frames enters state1."
+  },
+  {
+    "class_id": 42,
+    "state": 1,
+    "label": "thunder cloud: active",
+    "description": "At frame5 creates fire and deals area damage; at frame10 enters state2."
+  },
+  {
+    "class_id": 42,
+    "state": 2,
+    "label": "thunder cloud: disappearing",
+    "description": "Counts frames down and deletes the cloud when frame reaches zero."
+  },
+  {
+    "class_id": 43,
+    "state": 0,
+    "label": "rain cloud: forming",
+    "description": "After16 animation frames enters state1."
+  },
+  {
+    "class_id": 43,
+    "state": 1,
+    "label": "rain cloud: active",
+    "description": "Raining/extinguishing requires activity17. After its rain-cycle timer expires enters state2."
+  },
+  {
+    "class_id": 43,
+    "state": 2,
+    "label": "rain cloud: disappearing",
+    "description": "Counts frames down and deletes the cloud when frame reaches zero."
+  },
+  {
+    "class_id": 51,
+    "state": 0,
+    "label": "Farm at rest",
+    "description": "No farm state-animation update runs."
+  },
+  {
+    "class_id": 51,
+    "state": 1,
+    "label": "Farm feeding animation",
+    "description": "Draws feed.mfb and returns to state0 when its timer reaches250."
+  },
+  {
+    "class_id": 51,
+    "state": 2,
+    "label": "Farm rooster animation",
+    "description": "Changes rooster frames at timer1/36 and returns to state0 at80."
+  },
+  {
+    "class_id": 51,
+    "state": 3,
+    "label": "Farm cowshed animation",
+    "description": "Draws cowshed.mfb, plays a cow sound at timer50 and returns to state0 after100."
+  },
+  {
+    "class_id": 51,
+    "state": 4,
+    "label": "Farm pig animation",
+    "description": "Draws pigsy.mfb, plays a pig sound at timer50 and returns to state0 after100."
+  },
+  {
+    "class_id": 176,
+    "state": 0,
+    "label": "Scroll unlock: wizard fireball",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  },
+  {
+    "class_id": 176,
+    "state": 1,
+    "label": "Scroll unlock: wizard lightning",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  },
+  {
+    "class_id": 176,
+    "state": 2,
+    "label": "Scroll unlock: wizard see",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  },
+  {
+    "class_id": 176,
+    "state": 3,
+    "label": "Scroll unlock: wizard teleport",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  },
+  {
+    "class_id": 176,
+    "state": 4,
+    "label": "Scroll unlock: wizard summon zombie",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  },
+  {
+    "class_id": 176,
+    "state": 5,
+    "label": "Scroll unlock: wizard fear",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  },
+  {
+    "class_id": 176,
+    "state": 6,
+    "label": "Scroll unlock: wizard detect traps",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  },
+  {
+    "class_id": 176,
+    "state": 16,
+    "label": "Scroll unlock: priest mass heal",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  },
+  {
+    "class_id": 176,
+    "state": 17,
+    "label": "Scroll unlock: priest quench fire",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  },
+  {
+    "class_id": 176,
+    "state": 18,
+    "label": "Scroll unlock: priest protect",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  },
+  {
+    "class_id": 176,
+    "state": 19,
+    "label": "Scroll unlock: priest fast food",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  },
+  {
+    "class_id": 176,
+    "state": 20,
+    "label": "Scroll unlock: priest cause plague",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  },
+  {
+    "class_id": 176,
+    "state": 21,
+    "label": "Scroll unlock: priest cure plague",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  },
+  {
+    "class_id": 176,
+    "state": 22,
+    "label": "Scroll unlock: priest bless",
+    "description": "Collection enables this spell slot for the local player and deletes the scroll. Changing the state alone does not grant or cast the spell."
+  }
+]

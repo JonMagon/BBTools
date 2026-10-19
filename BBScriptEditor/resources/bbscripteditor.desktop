@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=BBScriptEditor
+Comment=Beasts & Bumpkins Mission Script Editor
+Exec=BBScriptEditor %F
+Icon=bbscripteditor
+Terminal=false
+Categories=Development;Game;

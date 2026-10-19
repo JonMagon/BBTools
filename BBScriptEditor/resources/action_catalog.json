@@ -1,0 +1,87 @@
+[
+  {
+    "action": 0,
+    "label": "Clear action",
+    "description": "Stores action zero and clears the current target, activity, destination and going-to reference. This does not assign a new job."
+  },
+  {
+    "action": 1,
+    "label": "Find and perform work",
+    "description": "VillagerDecide enables work pathing and calls PickWorkIfIdle. PickWork itself assigns this mode for wheat, apples and milking. SetAction does not immediately start a path for this mode."
+  },
+  {
+    "action": 2,
+    "label": "Work or train at target",
+    "description": "Starts a path only if MatchesWorkerSex or HasWorkplaceClass accepts the target; otherwise resets action to zero. Arrival can train a resident or assign a workplace, depending on the building and resident type."
+  },
+  {
+    "action": 3,
+    "label": "Meet spouse for reproduction",
+    "description": "Approaches the action target. Reproduction requires the hut-arrival checks and a spouse at that hut; the number alone does not create a child."
+  },
+  {
+    "action": 5,
+    "label": "Visit or use target",
+    "description": "Approaches the target using GoToObject with mode1. Arrival runs the target-class service/use logic; this is not a guaranteed purchase."
+  },
+  {
+    "action": 6,
+    "label": "Claim cow",
+    "description": "Approaches the target. Cow arrival, unless already following or being milked, changes ownership, stores the resident as work_object and sets cow activity90."
+  },
+  {
+    "action": 7,
+    "label": "Construct or reload",
+    "description": "Approaches the target and requests construction job5. Arrival at work points starts construction; arrival at a bolt trap reloads it."
+  },
+  {
+    "action": 8,
+    "label": "Consume target",
+    "description": "Cursor command40 chooses this mode for mushrooms and potions. Uses the common target-class arrival branch; mushroom and potion effects do not require a separate action8 comparison."
+  },
+  {
+    "action": 9,
+    "label": "Pick up or activate target",
+    "description": "Cursor command41 chooses this mode for portable items and interactable objects, including a lever and fountain of youth. Uses their target-class arrival logic."
+  },
+  {
+    "action": 10,
+    "label": "Release following cow",
+    "description": "Approaches the target. Cow arrival clears following activity90 and its work_object reference; other cow modes are not released by this branch."
+  },
+  {
+    "action": 11,
+    "label": "Attend wedding",
+    "description": "Church/hut arrivals drive the wedding sequence. ContinueAction clears this action and sends the resident home if the spouse is absent or the resident is no longer moving."
+  },
+  {
+    "action": 12,
+    "label": "Heal resident",
+    "description": "Approaches a target resident; arrival starts healing activity13 and stores the patient as work_object. Building repair is a different action."
+  },
+  {
+    "action": 13,
+    "label": "Preach to resident",
+    "description": "Approaches a target resident; arrival increases that resident law by a random32..63 and clears the action."
+  },
+  {
+    "action": 14,
+    "label": "Repair building",
+    "description": "Approaches the target and requests maintenance job23. Arrival starts activity116 only when the target is the building the worker has entered, then clears the action."
+  },
+  {
+    "action": 15,
+    "label": "Demolish building",
+    "description": "Approaches the target. Arrival starts activity117 only when the target is the building the worker has entered, then clears the action."
+  },
+  {
+    "action": 16,
+    "label": "Force attack on target",
+    "description": "GoToObject uses mode0 rather than mode1. Arrival sets the forced-attack flag for units supporting military job26; otherwise clears action and stores the attack target without that branch flag."
+  },
+  {
+    "action": 17,
+    "label": "Arrest resident",
+    "description": "Approaches the target. Arrival completes the arrest only for a guard: freezes/stops the prisoner, clears jobs and carries the prisoner. Other unit types clear the action."
+  }
+]

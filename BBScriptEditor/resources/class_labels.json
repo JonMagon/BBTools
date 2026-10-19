@@ -1,0 +1,770 @@
+{
+  "87": {
+    "label": "stone ring"
+  },
+  "9": {
+    "label": "crate-backed placeholder (class 9)"
+  },
+  "16": {
+    "label": "explosive crate"
+  },
+  "28": {
+    "label": "legacy crate animation placeholder"
+  },
+  "50": {
+    "label": "minstrels guild flag"
+  },
+  "63": {
+    "label": "removed placeholder 63"
+  },
+  "64": {
+    "label": "removed placeholder 64"
+  },
+  "88": {
+    "label": "rock pile"
+  },
+  "89": {
+    "label": "rocks with mine entrance"
+  },
+  "90": {
+    "label": "tall rock formation"
+  },
+  "91": {
+    "label": "bombman spawn wrapper"
+  },
+  "99": {
+    "label": "wide rock formation"
+  },
+  "108": {
+    "label": "legacy soul interaction object"
+  },
+  "136": {
+    "label": "cabin"
+  },
+  "137": {
+    "label": "cabin construction site"
+  },
+  "140": {
+    "label": "grave plot"
+  },
+  "173": {
+    "label": "flag object"
+  },
+  "188": {
+    "label": "zombie villager spawn wrapper"
+  },
+  "201": {
+    "label": "rock debris"
+  },
+  "205": {
+    "label": "explosive rock projectile"
+  },
+  "224": {
+    "label": "fear effect"
+  },
+  "228": {
+    "label": "sailing ship scenery"
+  },
+  "229": {
+    "label": "loose stones"
+  },
+  "3": {
+    "label": "unconfigured object class 3 (none_03)"
+  },
+  "4": {
+    "label": "unconfigured object class 4 (none_04)"
+  },
+  "8": {
+    "label": "unconfigured object class 8 (none_08)"
+  },
+  "10": {
+    "label": "object with animated overlay (class 10)"
+  },
+  "11": {
+    "label": "unconfigured object class 11 (none_0B)"
+  },
+  "12": {
+    "label": "unconfigured object class 12 (none_0C)"
+  },
+  "13": {
+    "label": "unconfigured object class 13 (none_0D)"
+  },
+  "14": {
+    "label": "unconfigured object class 14 (none_0E)"
+  },
+  "15": {
+    "label": "unconfigured object class 15 (none_0F)"
+  },
+  "17": {
+    "label": "unconfigured object class 17 (none_11)"
+  },
+  "18": {
+    "label": "unconfigured object class 18 (none_12)"
+  },
+  "19": {
+    "label": "unconfigured object class 19 (none_13)"
+  },
+  "20": {
+    "label": "unconfigured object class 20 (none_14)"
+  },
+  "21": {
+    "label": "unconfigured object class 21 (none_15)"
+  },
+  "22": {
+    "label": "unconfigured object class 22 (none_16)"
+  },
+  "23": {
+    "label": "unconfigured object class 23 (none_17)"
+  },
+  "24": {
+    "label": "cyclic animation object (class 24)"
+  },
+  "27": {
+    "label": "height-only placeholder (class 27)"
+  },
+  "30": {
+    "label": "unconfigured object class 30 (none_1E)"
+  },
+  "31": {
+    "label": "unconfigured object class 31 (none_1F)"
+  },
+  "32": {
+    "label": "unconfigured object class 32 (none_20)"
+  },
+  "35": {
+    "label": "unconfigured object class 35 (none_23)"
+  },
+  "45": {
+    "label": "unconfigured object class 45 (none_2D)"
+  },
+  "46": {
+    "label": "explosive destruction object (class 46)"
+  },
+  "52": {
+    "label": "unconfigured object class 52 (none_34)"
+  },
+  "59": {
+    "label": "unconfigured object class 59 (none_3B)"
+  },
+  "65": {
+    "label": "unconfigured object class 65 (none_41)"
+  },
+  "100": {
+    "label": "soul-reactive object (class 100)"
+  },
+  "101": {
+    "label": "unconfigured object class 101 (none_65)"
+  },
+  "102": {
+    "label": "directional object (class 102)"
+  },
+  "105": {
+    "label": "unconfigured object class 105 (none_69)"
+  },
+  "106": {
+    "label": "directional object with overlay (class 106)"
+  },
+  "107": {
+    "label": "unconfigured object class 107 (none_6B)"
+  },
+  "109": {
+    "label": "unconfigured object class 109 (none_6D)"
+  },
+  "112": {
+    "label": "unconfigured object class 112 (none_70)"
+  },
+  "120": {
+    "label": "unconfigured object class 120 (none_78)"
+  },
+  "121": {
+    "label": "unconfigured object class 121 (none_79)"
+  },
+  "125": {
+    "label": "unconfigured object class 125 (none_7D)"
+  },
+  "133": {
+    "label": "unconfigured object class 133 (none_85)"
+  },
+  "139": {
+    "label": "unconfigured object class 139 (none_8B)"
+  },
+  "165": {
+    "label": "unconfigured object class 165 (none_A5)"
+  },
+  "167": {
+    "label": "unconfigured object class 167 (none_A7)"
+  },
+  "168": {
+    "label": "unconfigured object class 168 (none_A8)"
+  },
+  "187": {
+    "label": "unconfigured object class 187 (none_BB)"
+  },
+  "232": {
+    "label": "unconfigured object class 232 (none_E8)"
+  },
+  "233": {
+    "label": "unconfigured object class 233 (none_E9)"
+  },
+  "234": {
+    "label": "unconfigured object class 234 (none_EA)"
+  },
+  "235": {
+    "label": "unconfigured object class 235 (none_EB)"
+  },
+  "236": {
+    "label": "unconfigured object class 236 (none_EC)"
+  },
+  "237": {
+    "label": "unconfigured object class 237 (none_ED)"
+  },
+  "238": {
+    "label": "unconfigured object class 238 (none_EE)"
+  },
+  "239": {
+    "label": "unconfigured object class 239 (none_EF)"
+  },
+  "240": {
+    "label": "unconfigured object class 240 (none_F0)"
+  },
+  "241": {
+    "label": "unconfigured object class 241 (none_F1)"
+  },
+  "242": {
+    "label": "unconfigured object class 242 (none_F2)"
+  },
+  "243": {
+    "label": "unconfigured object class 243 (none_F3)"
+  },
+  "244": {
+    "label": "unconfigured object class 244 (none_F4)"
+  },
+  "245": {
+    "label": "unconfigured object class 245 (none_F5)"
+  },
+  "246": {
+    "label": "unconfigured object class 246 (none_F6)"
+  },
+  "247": {
+    "label": "unconfigured object class 247 (none_F7)"
+  },
+  "248": {
+    "label": "unconfigured object class 248 (none_F8)"
+  },
+  "249": {
+    "label": "unconfigured object class 249 (none_F9)"
+  },
+  "250": {
+    "label": "unconfigured object class 250 (none_FA)"
+  },
+  "251": {
+    "label": "unconfigured object class 251 (none_FB)"
+  },
+  "252": {
+    "label": "unconfigured object class 252 (none_FC)"
+  },
+  "253": {
+    "label": "unconfigured object class 253 (none_FD)"
+  },
+  "254": {
+    "label": "unconfigured object class 254 (none_FE)"
+  },
+  "255": {
+    "label": "unconfigured object class 255 (none_FF)"
+  },
+  "113": {
+    "label": "peasant hut construction site"
+  },
+  "117": {
+    "label": "bakery construction site"
+  },
+  "118": {
+    "label": "well construction site"
+  },
+  "119": {
+    "label": "farm construction site"
+  },
+  "122": {
+    "label": "stone wall construction site"
+  },
+  "123": {
+    "label": "builders guild construction site"
+  },
+  "124": {
+    "label": "brewery construction site"
+  },
+  "126": {
+    "label": "town hall construction site"
+  },
+  "127": {
+    "label": "church construction site"
+  },
+  "128": {
+    "label": "bolt trap construction site"
+  },
+  "130": {
+    "label": "fence construction site"
+  },
+  "146": {
+    "label": "archers guild construction site"
+  },
+  "151": {
+    "label": "minstrels guild construction site"
+  },
+  "153": {
+    "label": "knights guild construction site"
+  },
+  "155": {
+    "label": "prison construction site"
+  },
+  "158": {
+    "label": "stables construction site"
+  },
+  "166": {
+    "label": "trebuchet construction site"
+  },
+  "170": {
+    "label": "gate construction site"
+  },
+  "175": {
+    "label": "wizards guild construction site"
+  },
+  "208": {
+    "label": "footmans guild construction site"
+  },
+  "225": {
+    "label": "lookout post construction site"
+  },
+  "94": {
+    "label": "apple tree sapling"
+  },
+  "131": {
+    "label": "spent apple tree"
+  },
+  "97": {
+    "label": "legacy wheat terrain marker"
+  },
+  "132": {
+    "label": "blood splash"
+  },
+  "70": {
+    "label": "bolt trap launcher"
+  },
+  "71": {
+    "label": "trap bolt projectile"
+  },
+  "72": {
+    "label": "bolt trap trigger"
+  },
+  "147": {
+    "label": "arrow projectile"
+  },
+  "148": {
+    "label": "mace projectile"
+  },
+  "149": {
+    "label": "electric projectile"
+  },
+  "156": {
+    "label": "acid bolt projectile"
+  },
+  "164": {
+    "label": "legacy sword projectile"
+  },
+  "75": {
+    "label": "tower"
+  },
+  "81": {
+    "label": "legacy stone launcher"
+  },
+  "55": {
+    "label": "thrown rock projectile"
+  },
+  "142": {
+    "label": "legacy linear rock projectile"
+  },
+  "197": {
+    "label": "linked shadow"
+  },
+  "195": {
+    "label": "teleport controller"
+  },
+  "196": {
+    "label": "spell blast projectile"
+  },
+  "227": {
+    "label": "fast food spell visual"
+  },
+  "230": {
+    "label": "spell flash visual"
+  },
+  "231": {
+    "label": "cure spell visual"
+  },
+  "141": {
+    "label": "spell controller"
+  },
+  "204": {
+    "label": "smoldering smoke"
+  },
+  "223": {
+    "label": "spell bolt projectile"
+  },
+  "26": {
+    "label": "legacy timed probe"
+  },
+  "40": {
+    "label": "airstrike barrage source"
+  },
+  "41": {
+    "label": "falling airstrike projectile"
+  },
+  "44": {
+    "label": "earthquake emitter"
+  },
+  "25": {
+    "label": "gas-emitting crate"
+  },
+  "34": {
+    "label": "damaging gas burst"
+  },
+  "38": {
+    "label": "gas residue visual"
+  },
+  "36": {
+    "label": "spike trap"
+  },
+  "37": {
+    "label": "land mine"
+  },
+  "93": {
+    "label": "flame trap"
+  },
+  "160": {
+    "label": "potion"
+  },
+  "144": {
+    "label": "water spring"
+  },
+  "206": {
+    "label": "road creation marker"
+  },
+  "213": {
+    "label": "target board scenery"
+  },
+  "33": {
+    "label": "legacy zombie breeder"
+  },
+  "171": {
+    "label": "configurable object generator"
+  },
+  "226": {
+    "label": "hive-backed object generator"
+  },
+  "191": {
+    "label": "zombie tomb"
+  },
+  "159": {
+    "label": "silver goblet"
+  },
+  "172": {
+    "label": "gold goblet"
+  },
+  "174": {
+    "label": "holy sword"
+  },
+  "177": {
+    "label": "helmet of strength"
+  },
+  "178": {
+    "label": "ring of fire protection"
+  },
+  "192": {
+    "label": "shield of the gods"
+  },
+  "193": {
+    "label": "crucifix"
+  },
+  "198": {
+    "label": "magic key"
+  },
+  "200": {
+    "label": "shovel"
+  },
+  "211": {
+    "label": "cloak of invisibility"
+  },
+  "212": {
+    "label": "ring of absolute power"
+  },
+  "57": {
+    "label": "burial cross"
+  },
+  "58": {
+    "label": "corpse"
+  },
+  "179": {
+    "label": "coffin scenery"
+  },
+  "190": {
+    "label": "grave scenery"
+  },
+  "80": {
+    "label": "legacy thumper device"
+  },
+  "82": {
+    "label": "stone archway"
+  },
+  "84": {
+    "label": "legacy worm hazard"
+  },
+  "85": {
+    "label": "worm trail"
+  },
+  "77": {
+    "label": "legacy town hall marker"
+  },
+  "98": {
+    "label": "village flagpost"
+  },
+  "56": {
+    "label": "ballistic fireball"
+  },
+  "67": {
+    "label": "legacy fireball launcher"
+  },
+  "68": {
+    "label": "shrapnel damage effect"
+  },
+  "222": {
+    "label": "large area bomb"
+  },
+  "202": {
+    "label": "projectile smoke visual"
+  },
+  "203": {
+    "label": "explosion visual and sound"
+  },
+  "194": {
+    "label": "temporary trap detection marker"
+  },
+  "61": {
+    "label": "flammable oil slick"
+  },
+  "62": {
+    "label": "legacy glue patch"
+  },
+  "176": {
+    "label": "spell unlock scroll"
+  },
+  "214": {
+    "label": "fountain of youth"
+  },
+  "162": {
+    "label": "teleport temple"
+  },
+  "199": {
+    "label": "magic gate"
+  },
+  "169": {
+    "label": "ordinary gate"
+  },
+  "210": {
+    "label": "mission flag lever"
+  },
+  "95": {
+    "label": "hatching chicken"
+  },
+  "96": {
+    "label": "calf"
+  },
+  "134": {
+    "label": "tree sapling"
+  },
+  "42": {
+    "label": "thunder cloud"
+  },
+  "43": {
+    "label": "rain cloud"
+  },
+  "92": {
+    "label": "villager-eating bush"
+  },
+  "217": {
+    "label": "dark altar"
+  },
+  "60": {
+    "label": "bench"
+  },
+  "216": {
+    "label": "chair"
+  },
+  "138": {
+    "label": "execution block"
+  },
+  "154": {
+    "label": "prison"
+  },
+  "221": {
+    "label": "lookout post"
+  },
+  "0": {
+    "label": "tree"
+  },
+  "5": {
+    "label": "tree variant 1"
+  },
+  "6": {
+    "label": "tree variant 2"
+  },
+  "215": {
+    "label": "shrubbery"
+  },
+  "218": {
+    "label": "weird tree"
+  },
+  "49": {
+    "label": "stump"
+  },
+  "83": {
+    "label": "mushroom"
+  },
+  "161": {
+    "label": "gold"
+  },
+  "74": {
+    "label": "bridge"
+  },
+  "129": {
+    "label": "fence"
+  },
+  "219": {
+    "label": "graveyard fence"
+  },
+  "220": {
+    "label": "graveyard fence variant"
+  },
+  "39": {
+    "label": "street lamp (no base drawing branch)"
+  },
+  "79": {
+    "label": "apple tree"
+  },
+  "48": {
+    "label": "logs"
+  },
+  "114": {
+    "label": "stone construction work point"
+  },
+  "115": {
+    "label": "wood construction work point"
+  },
+  "116": {
+    "label": "hammer construction work point"
+  },
+  "73": {
+    "label": "chapel"
+  },
+  "1": {
+    "label": "church"
+  },
+  "76": {
+    "label": "barrack"
+  },
+  "135": {
+    "label": "castle"
+  },
+  "143": {
+    "label": "campfire"
+  },
+  "47": {
+    "label": "well"
+  },
+  "51": {
+    "label": "farm"
+  },
+  "53": {
+    "label": "bakery"
+  },
+  "54": {
+    "label": "brewery"
+  },
+  "66": {
+    "label": "town hall"
+  },
+  "69": {
+    "label": "builders guild"
+  },
+  "86": {
+    "label": "wizards guild"
+  },
+  "145": {
+    "label": "archers guild"
+  },
+  "150": {
+    "label": "minstrels guild"
+  },
+  "152": {
+    "label": "knights guild"
+  },
+  "157": {
+    "label": "stables"
+  },
+  "207": {
+    "label": "footmans guild"
+  },
+  "180": {
+    "label": "grass terrain brush"
+  },
+  "181": {
+    "label": "light grass terrain brush"
+  },
+  "182": {
+    "label": "water terrain brush"
+  },
+  "183": {
+    "label": "mud terrain brush"
+  },
+  "184": {
+    "label": "rock terrain brush"
+  },
+  "185": {
+    "label": "sand terrain brush"
+  },
+  "186": {
+    "label": "forest terrain brush"
+  },
+  "189": {
+    "label": "green forest terrain brush"
+  },
+  "7": {
+    "label": "fire"
+  },
+  "209": {
+    "label": "ogre fire projectile"
+  },
+  "2": {
+    "label": "peasant hut"
+  },
+  "29": {
+    "label": "stone wall"
+  },
+  "78": {
+    "label": "wheat"
+  },
+  "103": {
+    "label": "villager base class"
+  },
+  "104": {
+    "label": "creature base class"
+  },
+  "110": {
+    "label": "cow"
+  },
+  "111": {
+    "label": "chicken"
+  },
+  "163": {
+    "label": "temple rock"
+  }
+}

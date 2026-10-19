@@ -1,0 +1,1148 @@
+[
+  {
+    "class_id": 33,
+    "activity": 0,
+    "label": "Incubate egg",
+    "description": "When the initial timer is zero, advances32 frames and enters25."
+  },
+  {
+    "class_id": 33,
+    "activity": 25,
+    "label": "Hatch a zombie",
+    "description": "After36 frames creates a neutral villager with zombie sex and enters26."
+  },
+  {
+    "class_id": 33,
+    "activity": 26,
+    "label": "Wait after hatching",
+    "description": "Waits until UpdateAI restarts activity0 with probability1/40."
+  },
+  {
+    "class_id": 36,
+    "activity": 0,
+    "label": "Armed spike trap",
+    "description": "Untriggered trap. Contact selects the active trap mode; spike/flame traps hide this pose from other owners."
+  },
+  {
+    "class_id": 36,
+    "activity": 18,
+    "label": "Trigger spikes",
+    "description": "Deals area damage every16 frames; after the byte frame counter wraps at256 clears activity."
+  },
+  {
+    "class_id": 37,
+    "activity": 0,
+    "label": "Armed mine",
+    "description": "The mine loses health as a fuse only in activity 24; zero is its initial untriggered mode."
+  },
+  {
+    "class_id": 37,
+    "activity": 24,
+    "label": "Triggered mine countdown",
+    "description": "Takes1 damage each Update, eventually triggering normal mine destruction/explosion."
+  },
+  {
+    "class_id": 43,
+    "activity": 0,
+    "label": "Cloud without active rain",
+    "description": "No rain overlay or extinguishing loop. Cloud appearance/disappearance is controlled separately by state_id."
+  },
+  {
+    "class_id": 43,
+    "activity": 17,
+    "label": "Rain and extinguish fires",
+    "description": "Every23 frames extinguishes nearby owned burning objects and fires. After20 cycles enters the cloud disappearance state and clears activity."
+  },
+  {
+    "class_id": 54,
+    "activity": 0,
+    "label": "Brewery at rest",
+    "description": "No brewing animation; depositing grain starts activity 100."
+  },
+  {
+    "class_id": 54,
+    "activity": 100,
+    "label": "Play brewing animation",
+    "description": "Advances the brewing frame through heading; at frame5 clears activity and resets heading/frame."
+  },
+  {
+    "class_id": 55,
+    "activity": 0,
+    "label": "Tower rock before landing phase",
+    "description": "The vertical velocity threshold advances activity 0 to 70. Impact then starts 91."
+  },
+  {
+    "class_id": 55,
+    "activity": 70,
+    "label": "Projectile landing phase",
+    "description": "Landing detection uses nonnegative vertical velocity; impact deals area damage, sets91 and timer72."
+  },
+  {
+    "class_id": 55,
+    "activity": 91,
+    "label": "Wait after impact",
+    "description": "After impact, decrements the72-tick timer and deletes the projectile when it reaches zero."
+  },
+  {
+    "class_id": 56,
+    "activity": 0,
+    "label": "Fireball before landing phase",
+    "description": "The vertical velocity threshold advances activity 0 to 70. Impact then starts 91."
+  },
+  {
+    "class_id": 56,
+    "activity": 70,
+    "label": "Projectile landing phase",
+    "description": "Landing detection uses positive vertical velocity; impact deals area damage, creates an explosion, sets91 and timer72."
+  },
+  {
+    "class_id": 56,
+    "activity": 91,
+    "label": "Wait after impact",
+    "description": "After impact, decrements the72-tick timer and deletes the projectile when it reaches zero."
+  },
+  {
+    "class_id": 57,
+    "activity": 0,
+    "label": "Stationary grave cross",
+    "description": "Neither raising (55) nor lowering (56) is active. Completing 55 clears activity and sets timer to 64."
+  },
+  {
+    "class_id": 57,
+    "activity": 55,
+    "label": "Raise grave cross",
+    "description": "Advances the raising animation, then holds its last frame, clears activity and sets timer64."
+  },
+  {
+    "class_id": 57,
+    "activity": 56,
+    "label": "Lower and remove grave cross",
+    "description": "Reverses frames; deletes the cross when frame reaches zero."
+  },
+  {
+    "class_id": 58,
+    "activity": 27,
+    "label": "Human death (unit type selects sprite)",
+    "description": "Draws this death sprite (27 selects it using state_id). SlowTick can change it to skeleton activity37. Only27 has its own frame advance in Update."
+  },
+  {
+    "class_id": 58,
+    "activity": 28,
+    "label": "Murder death sprite",
+    "description": "Draws murd_wst frame0. Update advances the counter to39, but this drawing branch keeps showing frame0. No natural assignment found."
+  },
+  {
+    "class_id": 58,
+    "activity": 29,
+    "label": "Dead zombie",
+    "description": "Draws the corresponding creature death sprite. SlowTick can delete the corpse on the random decay check; Update has no dedicated frame advance for this mode."
+  },
+  {
+    "class_id": 58,
+    "activity": 30,
+    "label": "Butchered cow remains",
+    "description": "Created by completed resident cow butchering. Draws the last cowchopm frame; no dedicated Update or SlowTick activity branch."
+  },
+  {
+    "class_id": 58,
+    "activity": 31,
+    "label": "Exploding cow",
+    "description": "Advances the corresponding cow death animation; holds its last frame while timer counts down from255, then deletes the corpse."
+  },
+  {
+    "class_id": 58,
+    "activity": 32,
+    "label": "Legacy corpse decay input",
+    "description": "Accepted by SlowTick as a corpse that can decay into a skeleton; Draw has no dedicated branch for this value."
+  },
+  {
+    "class_id": 58,
+    "activity": 33,
+    "label": "Pikeman death sprite",
+    "description": "Draws this death sprite (27 selects it using state_id). SlowTick can change it to skeleton activity37. Only27 has its own frame advance in Update."
+  },
+  {
+    "class_id": 58,
+    "activity": 34,
+    "label": "Footman death sprite",
+    "description": "Draws this death sprite (27 selects it using state_id). SlowTick can change it to skeleton activity37. Only27 has its own frame advance in Update."
+  },
+  {
+    "class_id": 58,
+    "activity": 35,
+    "label": "Flag bearer death sprite",
+    "description": "Draws this death sprite (27 selects it using state_id). SlowTick can change it to skeleton activity37. Only27 has its own frame advance in Update."
+  },
+  {
+    "class_id": 58,
+    "activity": 36,
+    "label": "Wizard death sprite",
+    "description": "Draws this death sprite (27 selects it using state_id). SlowTick can change it to skeleton activity37. Only27 has its own frame advance in Update."
+  },
+  {
+    "class_id": 58,
+    "activity": 37,
+    "label": "Skeleton",
+    "description": "Draws the skeleton sprite. SlowTick can delete the corpse on the random decay check."
+  },
+  {
+    "class_id": 58,
+    "activity": 98,
+    "label": "Dead wolf or dark wolf",
+    "description": "Draws the corresponding creature death sprite. SlowTick can delete the corpse on the random decay check; Update has no dedicated frame advance for this mode."
+  },
+  {
+    "class_id": 58,
+    "activity": 99,
+    "label": "Dead wasp or blood wasp",
+    "description": "Draws the corresponding creature death sprite. SlowTick can delete the corpse on the random decay check; Update has no dedicated frame advance for this mode."
+  },
+  {
+    "class_id": 58,
+    "activity": 104,
+    "label": "Dead bat or demon",
+    "description": "Draws the corresponding creature death sprite. SlowTick can delete the corpse on the random decay check; Update has no dedicated frame advance for this mode."
+  },
+  {
+    "class_id": 58,
+    "activity": 105,
+    "label": "Dead giant",
+    "description": "Draws the corresponding creature death sprite. SlowTick can delete the corpse on the random decay check; Update has no dedicated frame advance for this mode."
+  },
+  {
+    "class_id": 58,
+    "activity": 113,
+    "label": "Dead ogre",
+    "description": "Draws the corresponding creature death sprite. SlowTick can delete the corpse on the random decay check; Update has no dedicated frame advance for this mode."
+  },
+  {
+    "class_id": 58,
+    "activity": 114,
+    "label": "Vampire death",
+    "description": "Advances vampire death frames, then deletes the corpse; SlowTick can also remove it during decay."
+  },
+  {
+    "class_id": 58,
+    "activity": 118,
+    "label": "Cow slaughter animation",
+    "description": "Advances the corresponding cow death animation; holds its last frame while timer counts down from255, then deletes the corpse."
+  },
+  {
+    "class_id": 58,
+    "activity": 119,
+    "label": "Cow natural death animation",
+    "description": "Advances the corresponding cow death animation; holds its last frame while timer counts down from255, then deletes the corpse."
+  },
+  {
+    "class_id": 67,
+    "activity": 0,
+    "label": "Firebomb between shots",
+    "description": "A target after the reload timer expires starts the firing activity 58."
+  },
+  {
+    "class_id": 67,
+    "activity": 58,
+    "label": "Launch fireball",
+    "description": "Launches the prepared fireball at frame1. At animation end resets timer255, clears activity and destination."
+  },
+  {
+    "class_id": 69,
+    "activity": 0,
+    "label": "Toolshed at rest",
+    "description": "UpdateAI can start cosmetic activity 88 with probability 1/10."
+  },
+  {
+    "class_id": 69,
+    "activity": 88,
+    "label": "Play toolshed animation",
+    "description": "Cycles toolshed poses at timer1,9,17,25,33; timer41 clears activity."
+  },
+  {
+    "class_id": 70,
+    "activity": 0,
+    "label": "Loaded bolt trap",
+    "description": "Untriggered trap. Contact selects the active trap mode; spike/flame traps hide this pose from other owners."
+  },
+  {
+    "class_id": 70,
+    "activity": 21,
+    "label": "Fire bolt",
+    "description": "Launches the linked bolt by setting its activity23, then immediately enters22."
+  },
+  {
+    "class_id": 70,
+    "activity": 22,
+    "label": "Spent bolt trap",
+    "description": "Spent state. A worker arriving to reload clears activity and creates a replacement linked bolt."
+  },
+  {
+    "class_id": 71,
+    "activity": 0,
+    "label": "Unlaunched trap bolt",
+    "description": "The linked bolt is launched by the trap entering activity 21, which assigns bolt activity 23."
+  },
+  {
+    "class_id": 71,
+    "activity": 23,
+    "label": "Bolt in flight",
+    "description": "Moves down2048 fixed-point units each update; deletes on reaching the ground."
+  },
+  {
+    "class_id": 78,
+    "activity": 0,
+    "label": "Early wheat growth",
+    "description": "Spring SlowTick advances0 to1; fast-food magic can advance0 directly to ripe stage2."
+  },
+  {
+    "class_id": 78,
+    "activity": 1,
+    "label": "Growing wheat",
+    "description": "Summer SlowTick advances1 to ripe stage2; winter changes it to withering3."
+  },
+  {
+    "class_id": 78,
+    "activity": 2,
+    "label": "Ripe wheat",
+    "description": "A young-enough worker can harvest it: wheat enters4 and the worker enters6. Winter instead changes wheat to3."
+  },
+  {
+    "class_id": 78,
+    "activity": 3,
+    "label": "Wither in winter",
+    "description": "Frame decreases with the withering counter; removes wheat when the frame becomes less than3."
+  },
+  {
+    "class_id": 78,
+    "activity": 4,
+    "label": "Wheat being harvested",
+    "description": "Reserved by a harvesting resident. If reached_object disappears, clears activity back to0."
+  },
+  {
+    "class_id": 78,
+    "activity": 5,
+    "label": "Harvested wheat pending removal",
+    "description": "Displays frame0 until SlowTick removes the harvested wheat."
+  },
+  {
+    "class_id": 81,
+    "activity": 0,
+    "label": "Turret between shots",
+    "description": "After the cooldown, a destination starts activity 59; heading must match the target before firing."
+  },
+  {
+    "class_id": 81,
+    "activity": 59,
+    "label": "Aim and fire tower rock",
+    "description": "Turns toward the destination, then spawns a tower rock when aligned; clears activity and starts cooldown36."
+  },
+  {
+    "class_id": 92,
+    "activity": 0,
+    "label": "Disguised bush",
+    "description": "Draws a bush with eyes. UpdateAI can enter looking-around mode44 with probability1/10."
+  },
+  {
+    "class_id": 92,
+    "activity": 44,
+    "label": "Look around before moving",
+    "description": "UpdateAI attempts a nearby path with probability1/2. With a path enters45; without a path stays44."
+  },
+  {
+    "class_id": 92,
+    "activity": 45,
+    "label": "Emerge from disguise",
+    "description": "Eight-frame emergence animation, then enters46."
+  },
+  {
+    "class_id": 92,
+    "activity": 46,
+    "label": "Move as bushman",
+    "description": "Loops the moving bush frames while following the path."
+  },
+  {
+    "class_id": 92,
+    "activity": 47,
+    "label": "Return to disguise",
+    "description": "Eight-frame concealment animation, then clears activity."
+  },
+  {
+    "class_id": 92,
+    "activity": 48,
+    "label": "Victim animation sprite",
+    "description": "Draws a victim-specific sprite for sixteen frames, then enters49. The current contact path assigns49 directly, so48 is not established as naturally reachable."
+  },
+  {
+    "class_id": 92,
+    "activity": 49,
+    "label": "Shake after catching a victim",
+    "description": "Contact deletes the victim and directly selects this mode. After128 frames clears activity."
+  },
+  {
+    "class_id": 93,
+    "activity": 0,
+    "label": "Armed flame trap",
+    "description": "Untriggered trap. Contact selects the active trap mode; spike/flame traps hide this pose from other owners."
+  },
+  {
+    "class_id": 93,
+    "activity": 20,
+    "label": "Release flames",
+    "description": "Deals area damage at frame10, then clears activity at the flame-animation end."
+  },
+  {
+    "class_id": 103,
+    "activity": 0,
+    "label": "Walk or idle",
+    "description": "Normal walking/idle drawing; attack-cycle timer can still advance. Activity zero is also required by normal work selection and mating checks."
+  },
+  {
+    "class_id": 103,
+    "activity": 3,
+    "label": "Butcher a cow",
+    "description": "At animation wrap clears activity, creates a corpse in activity30, and adds food, water and happiness."
+  },
+  {
+    "class_id": 103,
+    "activity": 4,
+    "label": "Butcher a chicken",
+    "description": "At animation wrap clears activity and adds food, water and happiness; chicken sound and butcher sound occur at fixed frames."
+  },
+  {
+    "class_id": 103,
+    "activity": 5,
+    "label": "Gather apples",
+    "description": "At animation wrap clears activity and recreates the picked apple tree object."
+  },
+  {
+    "class_id": 103,
+    "activity": 6,
+    "label": "Harvest wheat",
+    "description": "Each completed animation reduces anim_timer; after the final cycle clears activity and marks the reached wheat as activity5."
+  },
+  {
+    "class_id": 103,
+    "activity": 7,
+    "label": "Attack",
+    "description": "Runs the sex-specific attack cycle. Without a target it clears activity and searches for another enemy."
+  },
+  {
+    "class_id": 103,
+    "activity": 9,
+    "label": "Lay stones",
+    "description": "Repeats work cycles, then marks the stone pile61 and reduces the construction-site work count."
+  },
+  {
+    "class_id": 103,
+    "activity": 10,
+    "label": "Saw wood",
+    "description": "Repeats work cycles, then marks the wood pile63 and reduces the construction-site work count."
+  },
+  {
+    "class_id": 103,
+    "activity": 11,
+    "label": "Hammer",
+    "description": "Repeats hammering cycles, then marks the hammer point66 and reduces the construction-site work count."
+  },
+  {
+    "class_id": 103,
+    "activity": 12,
+    "label": "Chop wood",
+    "description": "Repeats the chopping animation until anim_timer reaches zero, then clears activity."
+  },
+  {
+    "class_id": 103,
+    "activity": 13,
+    "label": "Heal a patient",
+    "description": "Heals work_object by4 at frame32 while its health is below maximum, looping from frame16. Clears activity at frame44."
+  },
+  {
+    "class_id": 103,
+    "activity": 14,
+    "label": "Play casting animation",
+    "description": "Runs the casting/healing pose and clears activity after32 frames. The spell itself is handled separately."
+  },
+  {
+    "class_id": 103,
+    "activity": 15,
+    "label": "Zombie spawn marker",
+    "description": "Assigned to the zombie created by class188 (none_BC), not zombie_tomb191. No dedicated villager Update/Draw activity branch exists for this value."
+  },
+  {
+    "class_id": 103,
+    "activity": 16,
+    "label": "Sleep",
+    "description": "The shared UpdateAI sleep check clears activity when night ends; the resident uses a sleeping sprite."
+  },
+  {
+    "class_id": 103,
+    "activity": 93,
+    "label": "Milk a cow",
+    "description": "After12 complete milking cycles clears the resident and reached cow activities."
+  },
+  {
+    "class_id": 103,
+    "activity": 115,
+    "label": "Serve a punishment",
+    "description": "Runs the sentence stages. SetTarget, SetAction, CommandGoToTile and SetCrime refuse changes while this activity is active."
+  },
+  {
+    "class_id": 103,
+    "activity": 116,
+    "label": "Repair a building",
+    "description": "Every16 frames adds20 health to work_object. At full health clears burning, ends repair and sends the resident out through the building door."
+  },
+  {
+    "class_id": 103,
+    "activity": 117,
+    "label": "Demolish a building",
+    "description": "Every16 frames deals30 damage to work_object; ends when the building is gone or marked for deletion."
+  },
+  {
+    "class_id": 104,
+    "activity": 0,
+    "label": "Walk or idle",
+    "description": "Uses the creature sex-specific walk/idle sprite and attack-cycle timer."
+  },
+  {
+    "class_id": 104,
+    "activity": 7,
+    "label": "Attack",
+    "description": "Runs the creature sex-specific attack cycle. Once the target is absent and the cycle is sufficiently advanced, clears activity."
+  },
+  {
+    "class_id": 108,
+    "activity": 0,
+    "label": "No contact reaction",
+    "description": "Resident contact selects reaction 38 or 39. These have no dedicated Update/Draw activity branch for this class."
+  },
+  {
+    "class_id": 108,
+    "activity": 38,
+    "label": "Female contact reaction",
+    "description": "Interaction assigns this value and plays the resident reaction sound. This is not the creature zombie class; no dedicated Update/Draw activity branch was found for this class."
+  },
+  {
+    "class_id": 108,
+    "activity": 39,
+    "label": "Male contact reaction",
+    "description": "Interaction assigns this value and plays the resident reaction sound. This is not the creature zombie class; no dedicated Update/Draw activity branch was found for this class."
+  },
+  {
+    "class_id": 110,
+    "activity": 0,
+    "label": "Cow free to wander",
+    "description": "The cow may choose a random nearby destination. Milking reservation 96, following 90 and milking 94 have separate rules."
+  },
+  {
+    "class_id": 110,
+    "activity": 53,
+    "label": "Timed cow animation",
+    "description": "Advances anim_timer to52, then clears activity. No natural assignment to53 was found in the scanned code."
+  },
+  {
+    "class_id": 110,
+    "activity": 54,
+    "label": "Advance cow animation frame",
+    "description": "Increments frame once, then clears activity. No natural assignment to54 was found in the scanned code."
+  },
+  {
+    "class_id": 110,
+    "activity": 90,
+    "label": "Follow owner resident",
+    "description": "UpdateAI repeatedly follows work_object. If the reference is missing, clears activity. Resident arrival assigns90 when claiming the cow."
+  },
+  {
+    "class_id": 110,
+    "activity": 94,
+    "label": "Cow being milked",
+    "description": "Maintains the milking link to the resident; clears activity if the reciprocal link is lost. TakeDamage returns early for activity94."
+  },
+  {
+    "class_id": 110,
+    "activity": 96,
+    "label": "Cow reserved for milking",
+    "description": "PickWork reserves a free cow; if no milking begins, UpdateAI clears the reservation after anim_timer exceeds8."
+  },
+  {
+    "class_id": 111,
+    "activity": 0,
+    "label": "Chicken without collectible egg",
+    "description": "SlowTick can set activity 92; collecting that egg clears activity and sets timer to 20."
+  },
+  {
+    "class_id": 111,
+    "activity": 92,
+    "label": "Egg ready to collect",
+    "description": "Draws a collectible egg. Resident arrival consumes it, clears activity and starts timer20."
+  },
+  {
+    "class_id": 113,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 113,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 113,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 114,
+    "activity": 0,
+    "label": "Stone work available",
+    "description": "Available work point; an arriving worker reserves it and begins the corresponding construction animation."
+  },
+  {
+    "class_id": 114,
+    "activity": 60,
+    "label": "Stone work reserved",
+    "description": "Worker reservation expires after timer exceeds200, clearing activity; completion instead sets61."
+  },
+  {
+    "class_id": 114,
+    "activity": 61,
+    "label": "Stone work finished",
+    "description": "Completed work point. The worker reduces the parent site remaining-work count; site completion logic later removes the point."
+  },
+  {
+    "class_id": 115,
+    "activity": 0,
+    "label": "Wood work available",
+    "description": "Available work point; an arriving worker reserves it and begins the corresponding construction animation."
+  },
+  {
+    "class_id": 115,
+    "activity": 62,
+    "label": "Wood work reserved",
+    "description": "Worker reservation expires after timer exceeds200, clearing activity; completion instead sets63."
+  },
+  {
+    "class_id": 115,
+    "activity": 63,
+    "label": "Wood work finished",
+    "description": "Completed work point. The worker reduces the parent site remaining-work count; site completion logic later removes the point."
+  },
+  {
+    "class_id": 116,
+    "activity": 0,
+    "label": "Hammer work available",
+    "description": "An arriving worker reserves this point with activity 65 and starts hammering activity 11."
+  },
+  {
+    "class_id": 116,
+    "activity": 65,
+    "label": "Hammer work reserved",
+    "description": "Worker reservation expires after timer exceeds200, clearing activity; completion instead sets66."
+  },
+  {
+    "class_id": 116,
+    "activity": 66,
+    "label": "Hammer work finished",
+    "description": "Completed work point. The worker reduces the parent site remaining-work count; site completion logic later removes the point."
+  },
+  {
+    "class_id": 117,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 117,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 117,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 118,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 118,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 118,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 119,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 119,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 119,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 123,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 123,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 123,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 124,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 124,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 124,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 126,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 126,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 126,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 127,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 127,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 127,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 137,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 137,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 137,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 141,
+    "activity": 71,
+    "label": "Apply detect traps effect",
+    "description": "With a caster reference, reveals enemy spike/flame traps and mines within radius8 using trap markers; then deletes the effect."
+  },
+  {
+    "class_id": 141,
+    "activity": 72,
+    "label": "Apply fireball effect",
+    "description": "With a caster reference, launches a spell_blast projectile from the caster toward this tile; then deletes the effect."
+  },
+  {
+    "class_id": 141,
+    "activity": 73,
+    "label": "Apply cause plague effect",
+    "description": "Assigns a random disease value0..2 to enemy villagers within radius5; then deletes the effect."
+  },
+  {
+    "class_id": 141,
+    "activity": 74,
+    "label": "Apply protect effect",
+    "description": "Sets protection flag0x40000000 and effect_timer255 on friendly villagers within radius5; then deletes the effect."
+  },
+  {
+    "class_id": 141,
+    "activity": 75,
+    "label": "Apply summon zombie effect",
+    "description": "Animates summoning until state58, creates a neutral zombie creature, and deletes the effect."
+  },
+  {
+    "class_id": 141,
+    "activity": 76,
+    "label": "Apply lightning effect",
+    "description": "Creates a thunder cloud at this tile, then deletes the effect."
+  },
+  {
+    "class_id": 141,
+    "activity": 77,
+    "label": "Apply quench fire effect",
+    "description": "Creates a rain cloud with activity17, then deletes the effect."
+  },
+  {
+    "class_id": 141,
+    "activity": 78,
+    "label": "Apply cure plague effect",
+    "description": "Clears disease on objects within radius5, adds cure visuals, then deletes the effect."
+  },
+  {
+    "class_id": 141,
+    "activity": 79,
+    "label": "Apply fast food effect",
+    "description": "Within radius5 ripens friendly wheat/apple trees and sets friendly cow/chicken timer1; then deletes the effect."
+  },
+  {
+    "class_id": 141,
+    "activity": 80,
+    "label": "Apply fear effect",
+    "description": "Makes enemy villagers, creatures and cows within radius5 flee; creates flash/fear visuals and deletes the effect."
+  },
+  {
+    "class_id": 141,
+    "activity": 81,
+    "label": "Apply see effect",
+    "description": "With a caster reference, launches a spell_bolt toward this tile; then deletes the effect. This internal spell name does not imply immediate map reveal."
+  },
+  {
+    "class_id": 141,
+    "activity": 101,
+    "label": "Apply teleport effect",
+    "description": "With a caster reference, teleports that caster to this tile with flashes at both ends; then deletes the effect."
+  },
+  {
+    "class_id": 141,
+    "activity": 102,
+    "label": "Apply mass heal effect",
+    "description": "Adds100 health to injured friendly villagers within radius5, adds healing visuals, then deletes the effect."
+  },
+  {
+    "class_id": 141,
+    "activity": 103,
+    "label": "Apply bless effect",
+    "description": "Within radius1 adds health64, food32, water32, happiness64 and fitness32 to friendly villagers; then deletes the effect."
+  },
+  {
+    "class_id": 142,
+    "activity": 0,
+    "label": "Projectile collision grace period",
+    "description": "Ignores obstacle-triggered impact until health has fallen by more than16; then enters69."
+  },
+  {
+    "class_id": 142,
+    "activity": 69,
+    "label": "Projectile collision enabled",
+    "description": "Explodes on obstacle contact or health exhaustion; collision with a resident also reduces remaining health to1."
+  },
+  {
+    "class_id": 146,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 146,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 146,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 147,
+    "activity": 0,
+    "label": "Arrow before landing phase",
+    "description": "The vertical velocity threshold advances activity 0 to 70. Impact then starts 91."
+  },
+  {
+    "class_id": 147,
+    "activity": 70,
+    "label": "Projectile landing phase",
+    "description": "Landing detection uses positive vertical velocity; impact deals area damage, sets91 and timer72."
+  },
+  {
+    "class_id": 147,
+    "activity": 91,
+    "label": "Wait after impact",
+    "description": "After impact, decrements the72-tick timer and deletes the projectile when it reaches zero."
+  },
+  {
+    "class_id": 151,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 151,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 151,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 153,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 153,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 153,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 155,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 155,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 155,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 158,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 158,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 158,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 160,
+    "activity": 84,
+    "label": "Red healing potion",
+    "description": "Selecting the red potion adds255 health, plays its sounds and consumes the potion."
+  },
+  {
+    "class_id": 160,
+    "activity": 85,
+    "label": "Green random-effect potion",
+    "description": "Selecting the green potion chooses one of ten random effects, including harmful effects, spells, healing, intelligence or creature creation."
+  },
+  {
+    "class_id": 160,
+    "activity": 86,
+    "label": "Blue intelligence potion",
+    "description": "Selecting the blue potion adds255 intelligence, plays its sounds and consumes the potion."
+  },
+  {
+    "class_id": 169,
+    "activity": 0,
+    "label": "Ordinary gate manually open",
+    "description": "Cursor command clears activity and blockers. Activity 95 selects automatic gate operation; it is not a permanently closed pose."
+  },
+  {
+    "class_id": 169,
+    "activity": 95,
+    "label": "Ordinary gate automatic mode",
+    "description": "Manual click sets blocking immediately and timer120. Update reduces the timer and eventually clears blocking; a crossing unit changes 95 to97. Thus 95 does not mean a permanent closed state."
+  },
+  {
+    "class_id": 169,
+    "activity": 97,
+    "label": "Ordinary gate passage delay",
+    "description": "Contact from mode95 plays the opening sound and sets timer24. After expiry and once the tile has no standing unit, Update returns to95 and plays the closing sound."
+  },
+  {
+    "class_id": 171,
+    "activity": 0,
+    "label": "Generator enabled",
+    "description": "SlowTick generates objects only while activity is zero. Every nonzero value disables generation; no separate named modes are defined."
+  },
+  {
+    "class_id": 175,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 175,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 175,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 199,
+    "activity": 0,
+    "label": "Closed appearance only",
+    "description": "Sets the displayed gate pose; this activity alone does not update collision blocking."
+  },
+  {
+    "class_id": 199,
+    "activity": 106,
+    "label": "Open appearance only",
+    "description": "Sets the displayed gate pose; this activity alone does not update collision blocking."
+  },
+  {
+    "class_id": 199,
+    "activity": 108,
+    "label": "Open",
+    "description": "Plays the opening animation, then makes the gate tile passable."
+  },
+  {
+    "class_id": 199,
+    "activity": 109,
+    "label": "Close",
+    "description": "Plays the closing animation and restores collision blocking."
+  },
+  {
+    "class_id": 208,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 208,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 208,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 210,
+    "activity": 0,
+    "label": "Switch lever off",
+    "description": "Sets the displayed pose and clears/sets the global flag selected by the lever state byte."
+  },
+  {
+    "class_id": 210,
+    "activity": 110,
+    "label": "Switch lever on",
+    "description": "Sets the displayed pose and clears/sets the global flag selected by the lever state byte."
+  },
+  {
+    "class_id": 210,
+    "activity": 111,
+    "label": "Animate switching lever on",
+    "description": "Plays the transition, then changes the corresponding global flag on reaching the final pose."
+  },
+  {
+    "class_id": 210,
+    "activity": 112,
+    "label": "Animate switching lever off",
+    "description": "Plays the transition, then changes the corresponding global flag on reaching the final pose."
+  },
+  {
+    "class_id": 225,
+    "activity": 0,
+    "label": "Construction foundation stage",
+    "description": "Initial foundation stage. Once its initial work count reaches zero, UpdateAI changes the site to67 and creates the upper-stage work points."
+  },
+  {
+    "class_id": 225,
+    "activity": 67,
+    "label": "Construction upper stage",
+    "description": "Draws the upper construction stage. Once its remaining work count is zero and no unfinished work objects remain, enters68 and replaces the site with its finished building."
+  },
+  {
+    "class_id": 225,
+    "activity": 68,
+    "label": "Construction complete (site replaced)",
+    "description": "Assigned immediately before deletion and creation of the finished building. Assigning68 alone does not run a separate completion handler."
+  },
+  {
+    "class_id": 226,
+    "activity": 0,
+    "label": "Generator enabled",
+    "description": "SlowTick generates objects only while activity is zero. Every nonzero value disables generation; no separate named modes are defined."
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {"name":"release","binaryDir":"${sourceDir}/build","cacheVariables":{"CMAKE_BUILD_TYPE":"Release"}},
+    {"name":"debug","binaryDir":"${sourceDir}/build-debug","cacheVariables":{"CMAKE_BUILD_TYPE":"Debug"}}
+  ],
+  "buildPresets": [{"name":"release","configurePreset":"release"},{"name":"debug","configurePreset":"debug"}],
+  "testPresets": [{"name":"release","configurePreset":"release","output":{"outputOnFailure":true}},{"name":"debug","configurePreset":"debug","output":{"outputOnFailure":true}}]
+}

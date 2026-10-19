@@ -1,0 +1,16 @@
+/build*/
+/dist/
+*.user
+*.png
+!/resources/icons/*.png
+*.box
+*.mis
+*.MIS
+*.mfb
+
+/.idea/
+/cmake-build-*/
+/docs/
+/resources/icons/concepts/
+/resources/icons/bbscripteditor-original*.png
+/resources/icons/README.md

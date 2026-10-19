@@ -1,0 +1,19 @@
+<RCC><qresource prefix="/data">
+<file alias="action_catalog.json">resources/action_catalog.json</file>
+<file alias="activity_catalog.json">resources/activity_catalog.json</file>
+<file alias="catalog.json">resources/catalog.json</file>
+<file alias="class_ids.json">resources/class_ids.json</file>
+<file alias="class_labels.json">resources/class_labels.json</file>
+<file alias="hover_names.json">resources/hover_names.json</file>
+<file alias="state_catalog.json">resources/state_catalog.json</file>
+</qresource>
+<qresource prefix="/icons">
+<file alias="bbscripteditor-16.png">resources/icons/bbscripteditor-16.png</file>
+<file alias="bbscripteditor-24.png">resources/icons/bbscripteditor-24.png</file>
+<file alias="bbscripteditor-32.png">resources/icons/bbscripteditor-32.png</file>
+<file alias="bbscripteditor-48.png">resources/icons/bbscripteditor-48.png</file>
+<file alias="bbscripteditor-64.png">resources/icons/bbscripteditor-64.png</file>
+<file alias="bbscripteditor-128.png">resources/icons/bbscripteditor-128.png</file>
+<file alias="bbscripteditor-256.png">resources/icons/bbscripteditor-256.png</file>
+<file alias="bbscripteditor-512.png">resources/icons/bbscripteditor-512.png</file>
+</qresource></RCC>
